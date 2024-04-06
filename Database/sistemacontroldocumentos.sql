@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sitemacontroldocumentos`
+-- Base de datos: `sistemacontroldocumentos`
 --
 
 -- --------------------------------------------------------
@@ -511,3 +511,10 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `clasificacion` (`idClasificacion`, `nombreClasificacion`) VALUES
+(1, 'default'),
+(2, 'documento_tecnico'),
+(3, 'documento_auditoria'),
+(4, 'documento_contrato'),
+(5, 'documento_correspondencia');
