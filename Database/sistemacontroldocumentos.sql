@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-04-2024 a las 22:01:28
+-- Tiempo de generación: 10-04-2024 a las 09:28:15
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -42,6 +42,17 @@ CREATE TABLE `clasificacion` (
   `idClasificacion` int(11) NOT NULL,
   `nombreClasificacion` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `clasificacion`
+--
+
+INSERT INTO `clasificacion` (`idClasificacion`, `nombreClasificacion`) VALUES
+(1, 'default'),
+(2, 'documento_tecnico'),
+(3, 'documento_auditoria'),
+(4, 'documento_contrato'),
+(5, 'documento_correspondencia');
 
 -- --------------------------------------------------------
 
@@ -102,7 +113,7 @@ CREATE TABLE `documento_correspondencia` (
 
 CREATE TABLE `documento_tecnico` (
   `idDocumento` int(11) NOT NULL,
-  `equipo` int(11) DEFAULT NULL
+  `equipo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -177,6 +188,13 @@ CREATE TABLE `planta` (
   `ciudad` varchar(45) DEFAULT NULL,
   `estado` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `planta`
+--
+
+INSERT INTO `planta` (`idPlanta`, `nombre`, `ciudad`, `estado`) VALUES
+(1, 'CGV', 'Valladolid', 'Yucatán');
 
 -- --------------------------------------------------------
 
@@ -273,7 +291,7 @@ ALTER TABLE `documento_correspondencia`
 -- Indices de la tabla `documento_tecnico`
 --
 ALTER TABLE `documento_tecnico`
-  ADD PRIMARY KEY (`idDocumento`),
+  ADD PRIMARY KEY (`idDocumento`,`equipo`),
   ADD KEY `equipo_idx` (`equipo`);
 
 --
@@ -358,7 +376,7 @@ ALTER TABLE `autoridad`
 -- AUTO_INCREMENT de la tabla `clasificacion`
 --
 ALTER TABLE `clasificacion`
-  MODIFY `idClasificacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idClasificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `documento`
@@ -400,7 +418,7 @@ ALTER TABLE `norma`
 -- AUTO_INCREMENT de la tabla `planta`
 --
 ALTER TABLE `planta`
-  MODIFY `idPlanta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPlanta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `seccion`
@@ -511,10 +529,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-INSERT INTO `clasificacion` (`idClasificacion`, `nombreClasificacion`) VALUES
-(1, 'default'),
-(2, 'documento_tecnico'),
-(3, 'documento_auditoria'),
-(4, 'documento_contrato'),
-(5, 'documento_correspondencia');
