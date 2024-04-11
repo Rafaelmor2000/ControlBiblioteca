@@ -1,6 +1,6 @@
 const {pool} = require("../Utilities/pool")
 module.exports = {
-    getAllTipo_documento : (callback) => {
+    getTipoDisplayList : (callback) => {
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if(err) throw err

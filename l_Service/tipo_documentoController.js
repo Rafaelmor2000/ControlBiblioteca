@@ -3,7 +3,7 @@ const dataController = require('../l_DataAccess/tipo_documento')
 const tipo_documento = require('../Utilities/tipo_documento')
 module.exports = {
     get : (req, res) => {
-        dataController.getAllTipo_documento(function(ans){
+        dataController.getTipoDisplayList(function(ans){
             let json = JSON.parse(JSON.stringify(ans))
             let list = []
             for (let key in json){
