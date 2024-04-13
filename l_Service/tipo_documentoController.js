@@ -9,8 +9,8 @@ module.exports = {
                 let tipo = new tipo_documento(json[key].idTipo, json[key].nombre, json[key].nombreClasificacion)
                 list.push(tipo)
             }
-            console.log(list)
-            res.send(list)
+            res.render("tipoDocumento", {title: "Tipos de Documento", list: list})
+            //res.send(list)
         })
     }
 
