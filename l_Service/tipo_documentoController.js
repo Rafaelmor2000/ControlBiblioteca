@@ -11,7 +11,6 @@ module.exports = {
                 list.push(tipo)
             }
             res.render("tipoDocumento", {list: list})
-            //res.send(list)
         })
     },
     nuevo : (req, res) => {
@@ -26,7 +25,9 @@ module.exports = {
         })
     },
     guardar : (req, res) => {
-        console.log(req.body)
-        res.send("tratando de guardar " + req.body.nombre)
+        let params = JSON.parse(JSON.stringify(req.body))
+        console.log(params)
+        dataController.saveNew(params)
+        res.redirect('./')
     }
 }
