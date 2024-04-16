@@ -13,4 +13,4 @@ app.set("views", "./l_Presentation/views")
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
 const tipo_documento = require('./l_Router/tipo_documento')
-app.use('/sistemaControlDocumentos', tipo_documento)
+app.use('/sistemaControlDocumentos/tipo_documento', tipo_documento)

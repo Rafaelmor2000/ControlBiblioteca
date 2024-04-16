@@ -1,0 +1,16 @@
+<body>
+    <h1>Crear nuevo tipo de documento</h1>
+    <form action="/sistemaControlDocumentos/tipo_documento/guardar" method="POST">
+        <fieldset>
+        <label for="nombre">Nombre del tipo:</label> 
+        <input type="text" id="nombre" value="nombre">
+        <p> Clasificacion: </p>
+        <% for(let i in list) { %>
+                <input type="radio" id='<%= list[i].id %>' name="Clasificacion" value='<%= list[i].id %>'>
+                <label for='<%= list[i].id %>'> <%= list[i].nombre %> </label><br>
+        <% } %>
+        <br>
+        <button type = "reset">Borrar</button>
+        <button type="submit">Crear</button>
+        </fieldset>
+    </form>
