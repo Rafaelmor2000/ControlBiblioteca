@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const tipoController = require('../l_Service/tipo_documentoController')
-const { data } = require('jquery')
 
 router.get('/', (req, res) => {
     let list = tipoController.get(function(list){

@@ -66,7 +66,7 @@ module.exports = {
             connection.query('INSERT INTO tipodocumento SET ?', params, (err, rows) => {
                 connection.release()
                 if (!err) {
-                    console.log("exito")
+                    console.log("exito guardando")
                 } else {
                     console.log(err)
                 }
