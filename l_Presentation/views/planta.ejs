@@ -1,23 +1,25 @@
 <html>
     <body>
         <%- include("../partials/navbar") %>
-        <h1> Tipos de Documento </h1>
+        <h1> Plantas </h1>
         <table>
             <tr>
                 <td>id</td>
                 <td>nombre</td>
-                <td>clasificacion</td>
+                <td>ciudad</td>
+                <td>estado</td>
             </tr>
             <% for(let i in list) { %>
                 <tr> 
                     <td><%= list[i].id %> </td>
                     <td><%= list[i].nombre %> </td>
-                    <td><%= list[i].clasificacion %> </td>
+                    <td><%= list[i].ciudad %> </td>
+                    <td><%= list[i].estado %></td>
                 </tr>
             <% } %>
         </table>
 
-        <a href="./tipo_documento/nuevo">Crear nuevo</a>
+        <a href="./nuevo">Crear nuevo</a>
         
 
     </body>

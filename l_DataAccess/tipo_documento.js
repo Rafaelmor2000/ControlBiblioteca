@@ -1,4 +1,5 @@
 const {pool} = require("../Utilities/pool")
+
 module.exports = {
     getTipoDisplayList : (callback) => {
         const dataPromise = new Promise((resolve, reject) => {

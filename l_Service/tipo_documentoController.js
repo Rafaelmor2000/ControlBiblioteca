@@ -1,7 +1,7 @@
-const jquery = require('jquery')
 const dataController = require('../l_DataAccess/tipo_documento')
 const tipo_documento = require('../Utilities/tipo_documento')
 const clasificacion = require('../Utilities/clasificacion')
+
 module.exports = {
     get : (callback) => {
         const dataPromise = new Promise((resolve) => {
