@@ -1,0 +1,24 @@
+<html>
+    <body>
+        <%- include("../partials/navbar") %>
+        <h1> Edificios </h1>
+        <table>
+            <tr>
+                <td>id</td>
+                <td>nombre</td>
+                <td>planta</td>
+            </tr>
+            <% for(let i in list) { %>
+                <tr> 
+                    <td><%= list[i].id %> </td>
+                    <td><%= list[i].nombre %> </td>
+                    <td><%= list[i].planta %> </td>
+                </tr>
+            <% } %>
+        </table>
+
+        <a href="./nuevo">Crear nuevo</a>
+        
+
+    </body>
+</html>

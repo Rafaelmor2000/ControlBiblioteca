@@ -1,0 +1,18 @@
+<body>
+    <h1>Crear nuevo Edificio</h1>
+    <form action="./guardar" method="POST">
+        <fieldset>
+        <label for="nombre">Nombre del Edificio:</label> 
+        <input type="text" name="nombre" value="nombre" />
+        <fieldset name="opciones">
+        <legend>Planta:</legend>
+        <% for(let i in list) { %>
+                <input type="radio" id='<%= list[i].id %>' name="planta" value='<%= list[i].id %>'>
+                <label for='<%= list[i].id %>'> <%= list[i].nombre %> </label><br>
+        <% } %>
+        </fieldset>
+        <br>
+        <button type = "reset">Borrar</button>
+        <button type="submit">Crear</button>
+        </fieldset>
+    </form>

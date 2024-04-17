@@ -18,3 +18,6 @@ app.use('/sistemaControlDocumentos/tipo_documento', tipo_documento)
 
 const planta = require('./l_Router/planta')
 app.use('/sistemaControlDocumentos/planta', planta)
+
+const edificio = require('./l_Router/edificio')
+app.use('/sistemaControlDocumentos/edificio', edificio)
