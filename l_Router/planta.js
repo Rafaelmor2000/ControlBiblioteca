@@ -13,8 +13,14 @@ router.get('/nuevo', (req, res) => {
 })
 
 router.post('/guardar', (req,res) => {
-    plantaController.guardar(req.body)
-    res.redirect('./')
+    if(req.body.nombre == "" || req.body.ciudad == "" || req.body.estado == ""){
+        console.log("no se introdujo toda la informacion necesaria")
+        res.redirect('./nuevo')
+    }
+    else{
+        plantaController.guardar(req.body)
+        res.redirect('./')
+    }
 })
 
 

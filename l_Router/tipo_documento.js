@@ -15,8 +15,14 @@ router.get('/nuevo', (req, res) => {
 })
 
 router.post('/guardar', (req,res) => {
-    tipoController.guardar(req.body)
-    res.redirect('./')
+    if(req.body.nombre == "" || req.body.clasificacion == undefined){
+        console.log("no se introdujo toda la informacion necesaria")
+        res.redirect('./nuevo')
+    }
+    else{ 
+        tipoController.guardar(req.body)
+        res.redirect('./')
+    }
 })
 
 

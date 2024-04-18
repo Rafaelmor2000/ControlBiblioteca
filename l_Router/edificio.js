@@ -15,8 +15,9 @@ router.get('/nuevo', (req, res) => {
 })
 
 router.post('/guardar', (req,res) => {
-    if(req.body.nombre == undefined || req.body.planta == undefined){
-        res.send("newEdificio", {list: list, error: error})
+    if(req.body.nombre == "" || req.body.planta == undefined){
+        console.log("no se introdujo toda la informacion necesaria")
+        res.redirect('./nuevo')
     }
     else{
         edificioController.guardar(req.body)
