@@ -1,7 +1,36 @@
 <nav>
-    <a href="/sistemaControlDocumentos/documentos"> Documentos </a> <br>
+    <div class="dropdown">
+        <button class="dropbtn">Documentos</button>
+        <div class="dropdown-content">
+          <a href="/sistemaControlDocumentos">Todos </a>
+          <a href="/sistemaControlDocumentos/tecnico">Documentos Tecnicos</a>
+          <a href="/sistemaControlDocumentos/auditorias">Documentos de Auditorias</a>
+        </div>
+    </div><br>
     <a href="/sistemaControlDocumentos/tipo_documento"> Tipos </a> <br>
-    <a href="/sistemaControlDocumentos/ubicaciones_fisicas"> Ubicaciones Fisicas </a> <br>
-    <a href="/sistemaControlDocumentos/equipos_sistemas"> Equipos y Sistemas </a> <br>
-    <a href="/sistemaControlDocumentos/autoridades_normas"> Autoridades y Normas </a>
+    <div class="dropdown">
+        <button class="dropbtn">Ubicaciones_fisicas</button>
+        <div class="dropdown-content">
+          <a href="/sistemaControlDocumentos/planta">Planta </a>
+          <a href="/sistemaControlDocumentos/edificio">Edificio</a>
+          <a href="/sistemaControlDocumentos/zona">Zona</a>
+          <a href="/sistemaControlDocumentos/mueble">Mueble</a>
+          <a href="/sistemaControlDocumentos/seccion">Seccion</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Equipos y Sistemas</button>
+        <div class="dropdown-content">
+          <a href="/sistemaControlDocumentos/equipos">Equipos </a>
+          <a href="/sistemaControlDocumentos/Sistemas">Sistemas</a>
+          <a href="/sistemaControlDocumentos/marca">Marcas Fabricantes</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Autoridades y Normas</button>
+        <div class="dropdown-content">
+          <a href="/sistemaControlDocumentos/normas">Normas </a>
+          <a href="/sistemaControlDocumentos/autoridades">Autoridades</a>
+        </div>
+    </div>
 </nav>
