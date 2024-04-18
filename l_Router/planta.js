@@ -19,7 +19,7 @@ router.post('/guardar', (req,res) => {
     }
     else{
         plantaController.guardar(req.body)
-        res.redirect('./')
+        res.redirect('/sistemaControlDocumentos/planta/')
     }
 })
 

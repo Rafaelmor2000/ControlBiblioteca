@@ -21,7 +21,7 @@ router.post('/guardar', (req,res) => {
     }
     else{
         edificioController.guardar(req.body)
-        res.redirect('./')
+        res.redirect('/sistemaControlDocumentos/edificio/')
     }
 })
 

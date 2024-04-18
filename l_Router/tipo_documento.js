@@ -21,7 +21,7 @@ router.post('/guardar', (req,res) => {
     }
     else{ 
         tipoController.guardar(req.body)
-        res.redirect('./')
+        res.redirect('/sistemaControlDocumentos/tipo_documento/')
     }
 })
 
