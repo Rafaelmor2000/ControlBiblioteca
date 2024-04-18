@@ -1,36 +1,75 @@
-<nav>
-    <div class="dropdown">
-        <button class="dropbtn">Documentos</button>
-        <div class="dropdown-content">
-          <a href="/sistemaControlDocumentos">Todos </a>
-          <a href="/sistemaControlDocumentos/tecnico">Documentos Tecnicos</a>
-          <a href="/sistemaControlDocumentos/auditorias">Documentos de Auditorias</a>
-        </div>
-    </div><br>
-    <a href="/sistemaControlDocumentos/tipo_documento"> Tipos </a> <br>
-    <div class="dropdown">
-        <button class="dropbtn">Ubicaciones_fisicas</button>
-        <div class="dropdown-content">
-          <a href="/sistemaControlDocumentos/planta">Planta </a>
-          <a href="/sistemaControlDocumentos/edificio">Edificio</a>
-          <a href="/sistemaControlDocumentos/zona">Zona</a>
-          <a href="/sistemaControlDocumentos/mueble">Mueble</a>
-          <a href="/sistemaControlDocumentos/seccion">Seccion</a>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Sistema Control de Documentos</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Documentos
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos">Todos </a> </li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/tecnico">Documentos Tecnicos</a></li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/auditorias">Documentos de Auditorias</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
-    <div class="dropdown">
-        <button class="dropbtn">Equipos y Sistemas</button>
-        <div class="dropdown-content">
-          <a href="/sistemaControlDocumentos/equipos">Equipos </a>
-          <a href="/sistemaControlDocumentos/Sistemas">Sistemas</a>
-          <a href="/sistemaControlDocumentos/marca">Marcas Fabricantes</a>
-        </div>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/sistemaControlDocumentos/tipo_documento"> Tipos de Documentos </a>
+      </div>
     </div>
-    <div class="dropdown">
-        <button class="dropbtn">Autoridades y Normas</button>
-        <div class="dropdown-content">
-          <a href="/sistemaControlDocumentos/normas">Normas </a>
-          <a href="/sistemaControlDocumentos/autoridades">Autoridades</a>
-        </div>
+
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Ubicaciones fisicas
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/planta">Planta </a></li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/edificio">Edificio</a></li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/zona">Zona</a></li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/mueble">Mueble</a></li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/seccion">Seccion</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Equipos y Sistemas
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/equipos">Equipos </a></li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/Sistemas">Sistemas</a></li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/marca">Marcas Fabricantes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Normas y Autoridades
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/normas">Normas </a></li>
+            <li><a class="dropdown-item" href="/sistemaControlDocumentos/Autoridades">Autoridades</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
+
+
+

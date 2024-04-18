@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const port = require('./Utilities/port')
+var path = require('path')
 
 const app = express();
 
@@ -8,6 +9,7 @@ const app = express();
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')))
 app.set("view engine", "ejs")
 app.set("views", "./l_Presentation/views")
 
