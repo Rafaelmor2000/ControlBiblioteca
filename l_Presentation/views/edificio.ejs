@@ -4,21 +4,25 @@
 
     <body>
         <%- include("../partials/navbar") %>
-        
+
         <h1> Edificios </h1>
-        <table>
+        <table  class="table table-bordered">
+            <thead class="table-dark">
             <tr>
-                <td>id</td>
-                <td>nombre</td>
-                <td>planta</td>
+                <th>id</th>
+                <th>nombre</th>
+                <th>planta</th>
             </tr>
+            </thead>
+            <tbody>
             <% for(let i in list) { %>
                 <tr> 
-                    <td><%= list[i].id %> </td>
+                    <th><%= list[i].id %> </th>
                     <td><%= list[i].nombre %> </td>
                     <td><%= list[i].planta %> </td>
                 </tr>
             <% } %>
+            </tbody>
         </table>
 
         <a href="./edificio/nuevo">Crear nuevo</a>
