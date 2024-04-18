@@ -15,8 +15,13 @@ router.get('/nuevo', (req, res) => {
 })
 
 router.post('/guardar', (req,res) => {
-    edificioController.guardar(req.body)
-    res.redirect('./')
+    if(req.body.nombre == undefined || req.body.planta == undefined){
+        res.send("newEdificio", {list: list, error: error})
+    }
+    else{
+        edificioController.guardar(req.body)
+        res.redirect('./')
+    }
 })
 
 
