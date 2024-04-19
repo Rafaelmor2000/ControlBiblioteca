@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const zonaController = require('../l_Service/zonaController')
+const PlantaController = require('../l_Service/PlantaController')
 
 router.get('/', (req, res) => {
     let list = zonaController.get(function(list){
@@ -9,15 +10,21 @@ router.get('/', (req, res) => {
 })
 
 router.get('/nuevo', (req, res) => {
-    let ans = zonaController.nuevo(function(ans){
-        res.render("newZona", {plantaList: ans.plantaList, edificioList: ans.edificioList})
-    })
-})
-
-router.get('/nuevo/:planta', (req, res) => {
-    let ans = zonaController.nuevo(function(ans){
-        res.render("newZona", {plantaList: ans.plantaList, edificioList: ans.edificioList})
-    })
+    let planta = req.query.planta
+    let nombrePlanta = "Seleccionar"
+    if (planta == undefined){
+        planta = -1
+        let ans = zonaController.nuevo(planta, function(ans){
+            res.render("newZona", {nombrePlanta: nombrePlanta, plantaList: ans.plantaList, edificioList: ans.edificioList})
+        })
+    }
+    else {
+        nombrePlanta = PlantaController.getName(planta, function(nombrePlanta){
+            let ans = zonaController.nuevo(planta, function(ans){
+                res.render("newZona", {nombrePlanta: nombrePlanta, plantaList: ans.plantaList, edificioList: ans.edificioList})
+            })
+        })
+    }
 })
 
 router.post('/guardar', (req,res) => {

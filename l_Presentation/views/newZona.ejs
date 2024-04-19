@@ -10,12 +10,13 @@
         <label for="nombre">Nombre de la Zona (Area u Oficina):</label> 
         <input type="text" name="nombre"/>
         <br>
-        <a class="btn btn-secondary dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Planta
+        <label for="dropdown">Planta:</label> 
+        <a class="btn btn-secondary dropdown-toggle" name="dropdown" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= nombrePlanta %>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
             <% for(let i in plantaList) { %>
-            <li><a class="dropdown-item" href='/sistemaControlDocumentos/zona/nuevo/<%= plantaList[i].id %>'><%= plantaList[i].nombre %>  </a> </li>
+            <li><a class="dropdown-item" href='?planta=<%= plantaList[i].id %>'><%= plantaList[i].nombre %>  </a> </li>
             <% } %>
         </ul>
 

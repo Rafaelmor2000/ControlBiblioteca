@@ -17,6 +17,17 @@ module.exports = {
             callback(list)
         })
     },
+
+    getName : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            dataController.getName(id, function(name){
+                resolve(name)
+            })
+        })
+        dataPromise.then(name => {
+            callback(name)
+        })
+    },
     
     guardar : (body) => {
         let params = JSON.parse(JSON.stringify(body))
