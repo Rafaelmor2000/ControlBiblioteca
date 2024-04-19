@@ -23,7 +23,7 @@
         <fieldset name="opciones">
         <legend>Edificio:</legend>
         <% for(let i in edificioList) { %>
-                <input type="radio" id='<%= edificioList[i].id %>' name="planta" value='<%= edificioList[i].id %>'>
+                <input type="radio" id='<%= edificioList[i].id %>' name="edificio" value='<%= edificioList[i].id %>'>
                 <label for='<%= edificioList[i].id %>'> <%= edificioList[i].nombre %> </label><br>
         <% } %>
         </fieldset>

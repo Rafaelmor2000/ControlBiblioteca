@@ -30,11 +30,12 @@ router.get('/nuevo', (req, res) => {
 router.post('/guardar', (req,res) => {
     if(req.body.nombre == "" || req.body.edificio == undefined){
         console.log("no se introdujo toda la informacion necesaria")
+        console.log(req.body)
         res.redirect('./nuevo')
     }
     else{
         zonaController.guardar(req.body)
-        res.redirect('/sistemaControlDocumentos/edificio/')
+        res.redirect('/sistemaControlDocumentos/zona/')
     }
 })
 
