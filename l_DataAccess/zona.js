@@ -5,7 +5,8 @@ module.exports = {
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if(err) throw err
-                connection.query('SELECT edificio.idEdificio, edificio.nombre, planta.nombre AS nombrePlanta from edificio, planta where edificio.planta = planta.idPlanta;', (err, rows) => {
+                connection.query('SELECT zona.idZona, zona.nombre, edificio.nombre AS nombreEdificio, planta.nombre AS nombrePlanta \
+                from zona, edificio, planta where zona.edificio = edificio.idEdificio and edificio.planta = planta.idPlanta', (err, rows) => {
                     connection.release() // return the connection to pool
                     if (!err) {
                         resolve(rows)
@@ -25,7 +26,7 @@ module.exports = {
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if(err) throw err
-                connection.query('SELECT * FROM edificio', (err, rows) => {
+                connection.query('SELECT * FROM zona', (err, rows) => {
                     connection.release() // return the connection to pool
                     if (!err) {
                         resolve(rows)
@@ -41,11 +42,11 @@ module.exports = {
         })
     },
 
-    getByPlanta: (id, callback) =>{
+    getByEdificio: (id, callback) =>{
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if(err) throw err
-                connection.query('SELECT * FROM edificio WHERE planta = ?', id, (err, rows) => {
+                connection.query('SELECT * FROM zona WHERE edificio = ?', id, (err, rows) => {
                     connection.release() // return the connection to pool
                     if (!err) {
                         resolve(rows)
@@ -64,8 +65,8 @@ module.exports = {
     saveNew : (params) => {
         pool.getConnection((err, connection) => {
             if(err) throw err
-            const {idEdificio, nombre, planta} = params
-            connection.query('INSERT INTO edificio SET ?', params, (err, rows) => {
+            const {idZona, nombre, edificio} = params
+            connection.query('INSERT INTO zona SET ?', params, (err, rows) => {
                 connection.release()
                 if (!err) {
                     console.log("exito guardando")

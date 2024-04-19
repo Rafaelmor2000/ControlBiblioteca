@@ -24,3 +24,6 @@ app.use('/sistemaControlDocumentos/planta', planta)
 
 const edificio = require('./l_Router/edificio')
 app.use('/sistemaControlDocumentos/edificio', edificio)
+
+const zona = require('./l_Router/zona')
+app.use('/sistemaControlDocumentos/zona', zona)

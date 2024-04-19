@@ -1,0 +1,35 @@
+<html>
+    <%- include("../partials/head") %>
+<body>
+
+    <%- include("../partials/navbar") %>
+
+    <h1>Crear nueva Zona</h1>
+    <form action="./guardar" method="POST">
+        <fieldset>
+        <label for="nombre">Nombre de la Zona (Area u Oficina):</label> 
+        <input type="text" name="nombre"/>
+        <br>
+        <a class="btn btn-secondary dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Planta
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <% for(let i in plantaList) { %>
+            <li><a class="dropdown-item" href='/sistemaControlDocumentos/zona/nuevo/<%= plantaList[i].id %>'><%= plantaList[i].nombre %>  </a> </li>
+            <% } %>
+        </ul>
+
+        <fieldset name="opciones">
+        <legend>Edificio:</legend>
+        <% for(let i in edificioList) { %>
+                <input type="radio" id='<%= edificioList[i].id %>' name="planta" value='<%= edificioList[i].id %>'>
+                <label for='<%= edificioList[i].id %>'> <%= edificioList[i].nombre %> </label><br>
+        <% } %>
+        </fieldset>
+
+        <br>
+        <button type = "reset">Borrar</button>
+        <button type="submit">Crear</button>
+        </fieldset>
+    </form>
+</html>
