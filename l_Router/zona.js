@@ -33,6 +33,7 @@ router.get('/nuevo', (req, res) => {
 router.get('/getEdificios', (req,res) => {
     let id = req.query.id
     let list = zonaController.getEdificios(id, function(list){
+        list = JSON.parse(JSON.stringify(list))
         res.send(list)
     })
 })

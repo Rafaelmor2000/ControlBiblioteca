@@ -19,34 +19,41 @@
             <% } %>
         </select>
 
-        <div id="edificio">
-        
-        </div>
+        <fieldset name="opciones">
+            <legend>Edificio:</legend>
+                    <div id = "edificios">
+                    </div>
+        </fieldset>
 
         <br>
         <button type = "reset">Borrar</button>
         <button type="submit">Crear</button>
         </fieldset>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>     
         <script>
-            document.getElementById("planta").addEventListener("change", getEdificios)
-            function getEdificios(){
-                let id = document.getElementById('planta').value
-                fetch('./getEdificios?id=' + id).then(function(list){
-                    return list.json();
-                }).then(function(list){
-                    div = document.getElementById("edificio")
-                    html = ""
-                    html += "<fieldset name='opciones'>"
-                    html += "<legend>Edificio:</legend>"
-                    for(let i in list) {
-                        html += `<input type="radio" id="entrada${list[i].id}" value= "${list[i].id}" >`
-                        html += `<label for='entrada${list[i].id}'> ${list[i].nombre} </label><br>`
+            $('#planta').on('change', function(e) {
+                e.preventDefault()
+                let id = document.getElementById("planta").value
+                $.ajax({
+                    url: `/sistemaControlDocumentos/zona/getEdificios?id=${id}`,
+                    dataType: "json",
+                    success: function(data) {
+                        var id, nombre, planta
+                        console.log(data)
+
+                        // Get the raw DOM object for the select box
+                        select = document.getElementById('edificios');
+
+                        // Load the new options
+                        for (let i in data) {
+                        option = data[i];
+                        select.append(`<input type="radio" id='${option.id}' name="${option.id}" value='${option.id}'> 
+                            <label for='${option.id}'> ${option.nombre} </label><br>`)
+                        }
                     }
-                    html += "</fieldset>"
-                    div.innerHTML = html
-                })
-            }
+                });
+            })
         </script>
     </form>
 </html>
