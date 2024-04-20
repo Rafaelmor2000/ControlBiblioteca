@@ -43,14 +43,17 @@
                         console.log(data)
 
                         // Get the raw DOM object for the select box
-                        select = document.getElementById('edificios');
+                        select = $('#edificios');
+
+                        let html = "" 
 
                         // Load the new options
                         for (let i in data) {
                         option = data[i];
-                        select.append(`<input type="radio" id='${option.id}' name="${option.id}" value='${option.id}'> 
-                            <label for='${option.id}'> ${option.nombre} </label><br>`)
+                        html += `<input type="radio" id='${option.id}' name="edificio" value='${option.id}'> 
+                            <label for='${option.id}'> ${option.nombre} </label><br>`
                         }
+                        select.html(html)
                     }
                 });
             })
