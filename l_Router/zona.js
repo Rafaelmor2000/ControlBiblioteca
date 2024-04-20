@@ -10,21 +10,31 @@ router.get('/', (req, res) => {
 })
 
 router.get('/nuevo', (req, res) => {
-    let planta = req.query.planta
-    let nombrePlanta = "Seleccionar"
-    if (planta == undefined){
-        planta = -1
-        let ans = zonaController.nuevo(planta, function(ans){
-            res.render("newZona", {nombrePlanta: nombrePlanta, plantaList: ans.plantaList, edificioList: ans.edificioList})
-        })
-    }
-    else {
-        nombrePlanta = PlantaController.getName(planta, function(nombrePlanta){
-            let ans = zonaController.nuevo(planta, function(ans){
-                res.render("newZona", {nombrePlanta: nombrePlanta, plantaList: ans.plantaList, edificioList: ans.edificioList})
-            })
-        })
-    }
+    let ans = zonaController.nuevo(function(ans){
+        res.render("newZona", {plantaList: ans})
+    })
+
+    // let planta = req.query.planta
+    // if (planta == undefined){
+    //     planta = -1
+    //     let ans = zonaController.nuevo(planta, function(ans){
+    //         res.render("newZona", {nombrePlanta: "Seleccion", plantaList: ans.plantaList, edificioList: ans.edificioList})
+    //     })
+    // }
+    // else {
+    //     let nombrePlanta = PlantaController.getName(planta, function(nombrePlanta){
+    //         let ans = zonaController.nuevo(planta, function(ans){
+    //             res.render("newZona", {nombrePlanta: nombrePlanta, plantaList: ans.plantaList, edificioList: ans.edificioList})
+    //         })
+    //     })
+    // }
+})
+
+router.get('/getEdificios', (req,res) => {
+    let id = req.query.id
+    let list = zonaController.getEdificios(id, function(list){
+        res.send(list)
+    })
 })
 
 router.post('/guardar', (req,res) => {

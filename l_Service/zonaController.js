@@ -24,9 +24,39 @@ module.exports = {
         })
     },
 
-    nuevo : (planta, callback) =>{
+    // nuevo : (callback) =>{
+    //     var plantaList = []
+    //     var edificioList = []
+    //     const dataPromise = new Promise((resolve) => {
+    //         plantaController.getList(function(json){
+    //             for (let key in json){
+    //                 let tipo = new Planta(json[key].idPlanta, json[key].nombre, json[key].ciudad, json[key].estado)
+    //                 plantaList.push(tipo)
+    //             }
+    //             resolve(plantaList)
+    //         })
+    //     })
+    //     const edificioPromise = new Promise((resolve) => {
+    //         if(planta != -1){
+    //             edificioController.getByPlanta(planta,function(json){
+    //                 for (let key in json){
+    //                     let tipo = new Edificio(json[key].idEdificio, json[key].nombre, planta)
+    //                     edificioList.push(tipo)
+    //                 }
+    //                 resolve(edificioList)
+    //             })
+    //         }
+    //         else{
+    //             resolve(edificioList)
+    //         }
+    //     })
+    //     Promise.all([dataPromise, edificioPromise]).then((values) => {
+    //         callback({plantaList: values[0], edificioList: values[1]})
+    //     })
+    // },
+
+    nuevo : (callback) =>{
         var plantaList = []
-        var edificioList = []
         const dataPromise = new Promise((resolve) => {
             plantaController.getList(function(json){
                 for (let key in json){
@@ -36,11 +66,18 @@ module.exports = {
                 resolve(plantaList)
             })
         })
+        dataPromise.then((values) => {
+            callback(values)
+        })
+    },
+
+    getEdificios : (id, callback) => {
+        let edificioList = []
         const edificioPromise = new Promise((resolve) => {
-            if(planta != -1){
-                edificioController.getByPlanta(planta,function(json){
+            if(id != -1){
+                edificioController.getByPlanta(id,function(json){
                     for (let key in json){
-                        let tipo = new Edificio(json[key].idEdificio, json[key].nombre, planta)
+                        let tipo = new Edificio(json[key].idEdificio, json[key].nombre, id)
                         edificioList.push(tipo)
                     }
                     resolve(edificioList)
@@ -50,8 +87,8 @@ module.exports = {
                 resolve(edificioList)
             }
         })
-        Promise.all([dataPromise, edificioPromise]).then((values) => {
-            callback({plantaList: values[0], edificioList: values[1]})
+        edificioPromise.then((values) =>{
+            callback(values)
         })
     },
 
