@@ -24,37 +24,6 @@ module.exports = {
         })
     },
 
-    // nuevo : (callback) =>{
-    //     var plantaList = []
-    //     var edificioList = []
-    //     const dataPromise = new Promise((resolve) => {
-    //         plantaController.getList(function(json){
-    //             for (let key in json){
-    //                 let tipo = new Planta(json[key].idPlanta, json[key].nombre, json[key].ciudad, json[key].estado)
-    //                 plantaList.push(tipo)
-    //             }
-    //             resolve(plantaList)
-    //         })
-    //     })
-    //     const edificioPromise = new Promise((resolve) => {
-    //         if(planta != -1){
-    //             edificioController.getByPlanta(planta,function(json){
-    //                 for (let key in json){
-    //                     let tipo = new Edificio(json[key].idEdificio, json[key].nombre, planta)
-    //                     edificioList.push(tipo)
-    //                 }
-    //                 resolve(edificioList)
-    //             })
-    //         }
-    //         else{
-    //             resolve(edificioList)
-    //         }
-    //     })
-    //     Promise.all([dataPromise, edificioPromise]).then((values) => {
-    //         callback({plantaList: values[0], edificioList: values[1]})
-    //     })
-    // },
-
     nuevo : (callback) =>{
         var plantaList = []
         const dataPromise = new Promise((resolve) => {

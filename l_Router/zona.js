@@ -45,7 +45,8 @@ router.post('/guardar', (req,res) => {
         res.redirect('./nuevo')
     }
     else{
-        zonaController.guardar(req.body)
+        let params = {nombre: req.body.nombre, edificio: req.body.edificio} 
+        zonaController.guardar(params)
         res.redirect('/sistemaControlDocumentos/zona/')
     }
 })
