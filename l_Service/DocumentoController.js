@@ -1,13 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const zonaController = require('../l_Service/zonaController')
-const PlantaController = require('../l_Service/PlantaController')
 
 router.get('/', (req, res) => {
-    let list = zonaController.get(function(list){
-        res.render("zona", {list: list})
+    console.log("get")
     })
-})
+
 
 router.get('/nuevo', (req, res) => {
     let ans = zonaController.nuevo(function(ans){
