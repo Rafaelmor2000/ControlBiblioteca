@@ -13,26 +13,13 @@
 
         <label for="descripcion">Descripción:</label> <br>
         <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea>
-        <br>
+        <br><br>
 
-        <form class="row row-cols-sm-auto">
-            <div class="col-12">
-                <div class="input-group">
-                    <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp"
-                        [(ngModel)]="model"
-                        ngbDatepicker
-                        #d="ngbDatepicker"
-                    />
-                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
-                </div>
-            </div>
-        </form>
-        
-        <hr />
-        <pre>Model: {{ model | json }}</pre>
+
+        <label for="fecha">Fecha del documento: </label>
+        <input id="fecha" name= "fecha" type="date">
+        <br><br>
+
         
         <label for="tipo">Tipo: </label>
         <select class="form-select" aria-label="Default select example" name="tipo"  id="tipo">
@@ -41,13 +28,15 @@
                 <option value='<%= tipo_documento[i].id %>'> <%= tipo_documento[i].nombre %> </option>
             <% } %>
         </select>
+        <br>
 
+        <label for="file">Cargar Archivo: </label>
+        <input type="file" id="file" name="file">
+        <br>
         <br>
         <button type = "reset">Borrar</button>
         <button type="submit">Agregar informacion</button>
         </fieldset>
 
-        <script>
-        </script>
     </form>
 </html>

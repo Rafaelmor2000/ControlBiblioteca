@@ -41,6 +41,27 @@ module.exports = {
             callback(json)
         })
     },
+
+    getById : (id, callback) =>{
+        const dataPromise = new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if(err) throw err
+                connection.query('SELECT * FROM tipodocumento WHERE idTipo = ?', id, (err, rows) => {
+                    connection.release() // return the connection to pool
+                    if (!err) {
+                        resolve(rows)
+                    } else {
+                        reject(console.log(err))
+                    }
+                })
+            })
+        })
+        dataPromise.then(rows => {
+            let json = JSON.parse(JSON.stringify(rows))
+            callback(json)
+        })
+    },
+
     getClasificaciones : (callback) => {
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {

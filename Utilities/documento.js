@@ -8,7 +8,7 @@ module.exports = class Documento {
         this.dir_fis = dir_fis
         this.dir_vir = dir_vir
     }
-    
+
     setFis(dir_fis){
         this.dir_fis = dir_fis
     }

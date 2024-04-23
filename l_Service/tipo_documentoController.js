@@ -35,6 +35,19 @@ module.exports = {
         })
     },
 
+    getById : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            let tipo
+            dataController.getById(id, function(json){
+                tipo = new tipo_documento(json[0].idTipo, json[0].nombre, json[0].clasificacion)
+                resolve(tipo)
+            })
+        })
+        dataPromise.then(tipo => {
+            callback(tipo)
+        })
+    },
+
     guardar : (body) => {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)
