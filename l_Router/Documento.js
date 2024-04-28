@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const tipoController = require("../l_Service/tipo_documentoController")
+const documentoController = require("../l_Service/DocumentoController")
 const {upload} = require("../Utilities/multer")
 const Documento = require("../Utilities/documento")
 const { json } = require('body-parser')
@@ -8,7 +9,9 @@ const { json } = require('body-parser')
 var documento = null
 
 router.get('/', (req, res) => {
-    res.send("get")
+    let ans = documentoController.get(function(ans){
+        res.render("documento", {list: ans})
+    })
 })
 
 router.get('/nuevo', (req, res) => {
@@ -30,6 +33,7 @@ router.post('/guardar', upload.single('file'), (req,res) => {
 
         }
         console.log(documento)
+        documentoController.guardar(req.body)
 
     
         // let tipo = tipoController.getById(req.body.tipo, function(tipo){

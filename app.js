@@ -36,3 +36,15 @@ app.use('/sistemaControlDocumentos/seccion', seccion)
 
 const documento = require('./l_Router/Documento')
 app.use('/sistemaControlDocumentos', documento)
+
+
+
+app.use(function(req, res) {
+    res.status(404);
+  
+    // respond with html page
+    if (req.accepts('html')) {
+      res.render('notFound');
+      return;
+    }
+})
