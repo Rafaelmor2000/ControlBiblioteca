@@ -5,12 +5,13 @@
     <body>
         <%- include("../partials/navbar") %>
 
-        <h1> Zonas </h1>
+        <h1> Muebles </h1>
         <table  class="table table-bordered">
             <thead class="table-dark">
             <tr>
                 <th>id</th>
                 <th>Nombre</th>
+                <th>Zona</th>
                 <th>Edificio</th>
                 <th>Planta</th>
             </tr>
@@ -20,6 +21,7 @@
                 <tr> 
                     <th><%= list[i].id %> </th>
                     <td><%= list[i].nombre %> </td>
+                    <td><%= list[i].zona %> </td>
                     <td><%= list[i].edificio %></td>
                     <td><%= list[i].planta %> </td>
                 </tr>
@@ -27,7 +29,7 @@
             </tbody>
         </table>
 
-        <a href="/sistemaControlDocumentos/zona/nuevo">Crear nuevo</a>
+        <a href="/sistemaControlDocumentos/mueble/nuevo">Crear nuevo</a>
         
 
     </body>

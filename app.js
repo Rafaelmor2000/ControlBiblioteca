@@ -28,5 +28,8 @@ app.use('/sistemaControlDocumentos/edificio', edificio)
 const zona = require('./l_Router/zona')
 app.use('/sistemaControlDocumentos/zona', zona)
 
+const mueble = require('./l_Router/mueble')
+app.use('/sistemaControlDocumentos/mueble', mueble)
+
 const documento = require('./l_Router/Documento')
 app.use('/sistemaControlDocumentos', documento)

@@ -1,0 +1,91 @@
+<html>
+    <%- include("../partials/head") %>
+<body>
+
+    <%- include("../partials/navbar") %>
+
+    <h1>Crear nuevo Mueble </h1>
+    <form action="./guardar" method="POST">
+        <fieldset>
+        <label for="nombre">Nombre del Mueble:</label> 
+        <input type="text" id="nombre" name="nombre">
+        <br>
+        
+        <label for="planta">Planta: </label>
+        <select class="form-select" aria-label="Default select example" name="planta"  id="planta">
+            <option selected value="-1"> Hacer selección </option>
+            <% for(let i in plantaList) { %>
+                <option value='<%= plantaList[i].id %>'> <%= plantaList[i].nombre %> </option>
+            <% } %>
+        </select>
+
+        <label for="edificio">Edificio: </label>
+        <div id = "edificios">
+        </div>
+
+        <fieldset name="opciones">
+            <legend>Zona:</legend>
+            <div id = "zonas">
+            </div>
+        </fieldset>
+
+        <br>
+        <button type = "reset">Borrar</button>
+        <button type="submit">Crear</button>
+        </fieldset>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>     
+        <script>
+            $('#planta').on('change', function(e) {
+                e.preventDefault()
+                let id = document.getElementById("planta").value
+                $.ajax({
+                    url: `/sistemaControlDocumentos/mueble/getEdificios?id=${id}`,
+                    dataType: "json",
+                    success: function(data) {
+                        var id, nombre, planta
+                        $('#zonas').html("")
+
+                        // Get the raw DOM object for the select box
+                        select = $('#edificios');
+
+                        let html = '<select class="form-select" aria-label="Default select example" name="edificio"  id="edificio"><option value="-1"> Hacer Selección </option>' 
+
+                        // Load the new options
+                        for (let i in data) {
+                        option = data[i];
+                        html += `<option value='${data[i].id}'> ${data[i].nombre} </option>`
+                        }
+                        select.html(html)
+                    }
+                });
+            })
+            $('#edificios').on('change', function(e) {
+                e.preventDefault()
+                let id = document.getElementById("edificio").value
+                console.log(id)
+                $.ajax({
+                    url: `/sistemaControlDocumentos/mueble/getZonas?id=${id}`,
+                    dataType: "json",
+                    success: function(data) {
+                        var id, nombre, edificio
+                        console.log(data)
+
+                        // Get the raw DOM object for the select box
+                        select = $('#zonas');
+
+                        let html = "" 
+
+                        // Load the new options
+                        for (let i in data) {
+                        option = data[i];
+                        html += `<input type="radio" id='${option.id}' name="zona" value='${option.id}'> 
+                            <label for='${option.id}'> ${option.nombre} </label><br>`
+                        }
+                        select.html(html)
+                    }
+                });
+            })
+        </script>
+    </form>
+</html>
