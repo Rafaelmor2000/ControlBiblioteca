@@ -27,13 +27,33 @@ router.post('/guardar', upload.single('file'), (req,res) => {
     }
     else{
         documento = new Documento (null, req.body.nombre, req.body.descripcion, req.body.fecha, req.body.tipo, null, null)
-        if(req.file){
-            fileData = JSON.parse(JSON.stringify(req.file))
-            documento.setVir(fileData.path)
+        var file = req.file
+        virPromise = new Promise((resolve) => {
+            if(req.file){
+                fileData = JSON.parse(JSON.stringify(req.file))
+                documento.setVir(fileData.path)
+                resolve()
+            }
+            else{
+                resolve()
+            }
+        })
+        fisPromise = new Promise((resolve) => {
+            if(req.body.seccion){
+                documento.setFis(req.body.seccion)
+                resolve()
+            }
+            else{
+                resolve()
+            }
+        })
 
-        }
-        console.log(documento)
-        documentoController.guardar(req.body)
+        Promise.all([virPromise, fisPromise]).then(() => {
+            console.log(documento)
+            documentoController.guardar(documento)
+        });
+        
+        res.redirect("/sistemaControlDocumentos")
 
     
         // let tipo = tipoController.getById(req.body.tipo, function(tipo){
