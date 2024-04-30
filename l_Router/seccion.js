@@ -14,6 +14,13 @@ router.get('/nuevo', (req, res) => {
     })
 })
 
+router.get('/getSeccionesByMueble', (req,res) => {
+    id = req.query.id
+    seccionController.getByMueble(id, function(list){
+        res.send(list)
+    })
+})
+
 router.post('/guardar', (req,res) => {
     if(req.body.nombre == "" || req.body.zona == undefined){
         console.log("no se introdujo toda la informacion necesaria")

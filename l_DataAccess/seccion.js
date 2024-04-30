@@ -46,7 +46,7 @@ module.exports = {
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if(err) throw err
-                connection.query('SELECT * FROM seccion WHERE mueble = ?', id, (err, rows) => {
+                connection.query('SELECT * FROM seccion WHERE idMueble = ?', id, (err, rows) => {
                     connection.release() // return the connection to pool
                     if (!err) {
                         resolve(rows)

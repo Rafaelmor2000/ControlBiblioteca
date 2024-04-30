@@ -37,6 +37,27 @@ module.exports = {
         })
     },
 
+    getByMueble : (id, callback) =>{
+        const dataPromise = new Promise((resolve) => {
+            let list = []
+            dataController.getByMueble(id, function(json){
+                if(id != -1){
+                    for (let key in json){
+                        let seccion = new Seccion(json[key].idSeccion, json[key].nombre, id)
+                        list.push(seccion)
+                    }
+                    resolve(list)
+                }
+                else{
+                    resolve(list)
+                }
+            })
+        })
+        dataPromise.then(list => {
+            callback(list)
+        })
+    },
+
     guardar : (body) => {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)
