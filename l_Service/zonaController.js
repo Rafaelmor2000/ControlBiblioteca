@@ -1,10 +1,7 @@
 const dataController = require('../l_DataAccess/zona')
-const edificioController = require('../l_DataAccess/edificio')
 const plantaController = require('../l_DataAccess/planta')
 const Zona = require("../Utilities/zona")
-const Edificio = require('../Utilities/edificio')
 const Planta = require('../Utilities/planta')
-const edificio = require('../l_DataAccess/edificio')
 
 
 module.exports = {
@@ -46,7 +43,7 @@ module.exports = {
             dataController.getByEdificio(id, function(json){
                 if(id != -1){
                     for (let key in json){
-                        let zona = new Zona(json[key].idEdificio, json[key].nombre, id)
+                        let zona = new Zona(json[key].idZona, json[key].nombre, id)
                         list.push(zona)
                     }
                     resolve(list)

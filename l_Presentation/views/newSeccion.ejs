@@ -44,7 +44,7 @@
                 e.preventDefault()
                 let id = document.getElementById("planta").value
                 $.ajax({
-                    url: `/sistemaControlDocumentos/mueble/getEdificios?id=${id}`,
+                    url: `/sistemaControlDocumentos/edificio/getEdificiosByPlanta?id=${id}`,
                     dataType: "json",
                     success: function(data) {
                         var id, nombre, planta
@@ -69,7 +69,7 @@
                 e.preventDefault()
                 let id = document.getElementById("edificio").value
                 $.ajax({
-                    url: `/sistemaControlDocumentos/seccion/getZonas?id=${id}`,
+                    url: `/sistemaControlDocumentos/zona/getZonasByEdificio?id=${id}`,
                     dataType: "json",
                     success: function(data) {
                         var id, nombre, planta
@@ -94,7 +94,7 @@
                 let id = document.getElementById("zona").value
                 console.log(id)
                 $.ajax({
-                    url: `/sistemaControlDocumentos/seccion/getMuebles?id=${id}`,
+                    url: `/sistemaControlDocumentos/mueble/getMueblesByZona?id=${id}`,
                     dataType: "json",
                     success: function(data) {
                         var id, nombre, edificio

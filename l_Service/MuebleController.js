@@ -1,10 +1,6 @@
 const dataController = require('../l_DataAccess/mueble')
-const zonaController = require('../l_DataAccess/zona')
-const edificioController = require('../l_DataAccess/edificio')
 const plantaController = require('../l_DataAccess/planta')
 const Mueble = require("../Utilities/mueble")
-const Zona = require("../Utilities/zona")
-const Edificio = require('../Utilities/edificio')
 const Planta = require('../Utilities/planta')
 
 
@@ -41,45 +37,24 @@ module.exports = {
         })
     },
 
-    getEdificios : (id, callback) => {
-        let edificioList = []
-        const edificioPromise = new Promise((resolve) => {
-            if(id != -1){
-                edificioController.getByPlanta(id,function(json){
+    getByZona : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            let list = []
+            dataController.getByZona(id, function(json){
+                if(id != -1){
                     for (let key in json){
-                        let edificio = new Edificio(json[key].idEdificio, json[key].nombre, id)
-                        edificioList.push(edificio)
+                        let zona = new Mueble(json[key].idMueble, json[key].nombre, id)
+                        list.push(zona)
                     }
-                    resolve(edificioList)
-                })
-            }
-            else{
-                resolve(edificioList)
-            }
+                    resolve(list)
+                }
+                else{
+                    resolve(list)
+                }
+            })
         })
-        edificioPromise.then((values) =>{
-            callback(values)
-        })
-    },
-
-    getZonas : (id, callback) => {
-        let zonaList = []
-        const zonaPromise = new Promise((resolve) => {
-            if (id != -1){
-                zonaController.getByEdificio(id, function(json){
-                    for (let key in json){
-                        let zona = new Zona(json[key].idZona, json[key].nombre, id)
-                        zonaList.push(zona)
-                    }
-                    resolve(zonaList)
-                })
-            }
-            else{
-                resolve(zonaList)
-            }
-        })
-        zonaPromise.then((zonaList) => {
-            callback(zonaList)
+        dataPromise.then(list => {
+            callback(list)
         })
     },
 

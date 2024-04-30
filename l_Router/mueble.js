@@ -14,18 +14,9 @@ router.get('/nuevo', (req, res) => {
     })
 })
 
-router.get('/getZonas', (req,res) => {
-    let id = req.query.id
-    let list = muebleController.getZonas(id, function(list){
-        list = JSON.parse(JSON.stringify(list))
-        res.send(list)
-    })
-})
-
-router.get('/getEdificios', (req,res) => {
-    let id = req.query.id
-    let list = muebleController.getEdificios(id, function(list){
-        list = JSON.parse(JSON.stringify(list))
+router.get('/getMueblesByZona', (req,res) => {
+    id = req.query.id
+    muebleController.getByZona(id, function(list){
         res.send(list)
     })
 })
