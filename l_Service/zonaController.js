@@ -40,27 +40,6 @@ module.exports = {
         })
     },
 
-    getEdificios : (id, callback) => {
-        let edificioList = []
-        const edificioPromise = new Promise((resolve) => {
-            if(id != -1){
-                edificioController.getByPlanta(id,function(json){
-                    for (let key in json){
-                        let tipo = new Edificio(json[key].idEdificio, json[key].nombre, id)
-                        edificioList.push(tipo)
-                    }
-                    resolve(edificioList)
-                })
-            }
-            else{
-                resolve(edificioList)
-            }
-        })
-        edificioPromise.then((values) =>{
-            callback(values)
-        })
-    },
-
     guardar : (body) => {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)

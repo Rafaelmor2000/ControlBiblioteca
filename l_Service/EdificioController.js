@@ -37,6 +37,29 @@ module.exports = {
         })
     },
 
+    getByPlanta : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            let list = []
+            dataController.getByPlanta(id, function(json){
+                if(id != -1){
+                    dataController.getByPlanta(id,function(json){
+                        for (let key in json){
+                            let tipo = new Edificio(json[key].idEdificio, json[key].nombre, id)
+                            list.push(tipo)
+                        }
+                        resolve(list)
+                    })
+                }
+                else{
+                    resolve(list)
+                }
+            })
+        })
+        dataPromise.then(list => {
+            callback(list)
+        })
+    },
+
     guardar : (body) => {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)

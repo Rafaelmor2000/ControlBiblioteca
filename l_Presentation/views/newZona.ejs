@@ -36,11 +36,10 @@
                 e.preventDefault()
                 let id = document.getElementById("planta").value
                 $.ajax({
-                    url: `/sistemaControlDocumentos/zona/getEdificios?id=${id}`,
+                    url: `/sistemaControlDocumentos/edificio/getEdificiosByPlanta?id=${id}`,
                     dataType: "json",
                     success: function(data) {
                         var id, nombre, planta
-                        console.log(data)
 
                         // Get the raw DOM object for the select box
                         select = $('#edificios');

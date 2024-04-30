@@ -14,6 +14,13 @@ router.get('/nuevo', (req, res) => {
     })
 })
 
+router.get('/getEdificiosByPlanta', (req,res) => {
+    list = edificioController.getByPlanta(req.query.id, function(list){
+        list = JSON.parse(JSON.stringify(list))
+        res.send(list)
+    })
+})
+
 router.post('/guardar', (req,res) => {
     if(req.body.nombre == "" || req.body.planta == undefined){
         console.log("no se introdujo toda la informacion necesaria")
