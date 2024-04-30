@@ -62,6 +62,28 @@ module.exports = {
         })
     },
 
+    getData : (id, callback) => {
+        const dataPromise = new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if(err) throw err
+                connection.query('SELECT seccion.idSeccion, seccion.nombre, mueble.nombre AS nombreMueble, zona.nombre AS nombreZona, edificio.nombre AS nombreEdificio, planta.nombre AS nombrePlanta \
+                from seccion, mueble, zona, edificio, planta where seccion.idSeccion = ? and seccion.idMueble = mueble.idMueble and mueble.zona = zona.idZona and zona.edificio = edificio.idEdificio \
+                and edificio.planta = planta.idPlanta', id, (err, rows) => {
+                    connection.release()
+                    if (!err) {
+                        resolve(rows)
+                    } else {
+                        reject(console.log(err))
+                    }
+                })
+            })
+        })
+        dataPromise.then(rows => {
+            let json = JSON.parse(JSON.stringify(rows))
+            callback(json)
+        })
+    },
+
     saveNew : (params) => {
         pool.getConnection((err, connection) => {
             if(err) throw err

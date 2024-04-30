@@ -58,6 +58,18 @@ module.exports = {
         })
     },
 
+    getData : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            dataController.getData(id, function(json){
+                let seccion = new Seccion(json[0].idSeccion, json[0].nombre, json[0].nombreMueble, json[0].nombreZona, json[0].nombreEdificio, json[0].nombrePlanta)
+                resolve(seccion)
+            })
+        })
+        dataPromise.then(seccion => {
+            callback(seccion)
+        })
+    },
+
     guardar : (body) => {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)

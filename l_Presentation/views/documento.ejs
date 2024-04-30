@@ -27,7 +27,7 @@
                     <td>
                         <% if (list[i].descripcion != "") { %>
                         <button data-bs-nombre='<%= list[i].nombre %>' data-bs-descripcion='<%= list[i].descripcion %>' type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#Modal">
-                            Ver Descripción
+                            Descripción
                         </button>
                         <% } %>
                     </td>
@@ -35,13 +35,13 @@
                     <td><%= list[i].tipo %> </td>
                     <td>
                     <% if (list[i].direccion_fisica != null) { %>
-                         <button data-bs-id='<%= list[i].idDocumento %>' type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
-                            Ver Ubicacion Fisica
+                         <button data-bs-id='<%= list[i].direccion_fisica %>' data-bs-nombre='<%= list[i].nombre %>' type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
+                            Ver
                         </button>
                     <% } %>
                     </td>
                     <td>
-                    <% if (list[i].direccion_virtual != null) { %>
+                    <% if (list[i].direccion_virtual) { %>
                         <a href="">Descargar</a>
                     <% } %>
                     </td>
@@ -71,23 +71,40 @@
   </div>
 
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>   
     <script>
         var modal = document.getElementById('modal')
         modal.addEventListener('show.bs.modal', function (event) {
             // Button that triggered the modal
             var button = event.relatedTarget
             // Extract info from data-bs-* attributes
+            var id = button.getAttribute('data-bs-id')
             var nombre = button.getAttribute('data-bs-nombre')
             var descripcion = button.getAttribute('data-bs-descripcion')
+
+            
+            var modalTitle = modal.querySelector('.modal-title')
+            var modalBody = modal.querySelector('.modal-body')
+            if (id == null){
+                modalTitle.textContent = 'Descripción de ' + nombre
+                modalBody.textContent = descripcion
+            }
+            else{
+                modalTitle.textContent = 'Ubicacion Fisica de ' + nombre
+                  $.ajax({
+                      url: `/sistemaControlDocumentos/seccion/getSeccionData?id=${id}`,
+                      dataType: "json",
+                      success: function(data) {
+                        modalBody.innerHTML = `<p> Sección: ${data.nombre} <br> Mueble: ${data.mueble} <br> Zona: ${data.zona} <br> Edificio: ${data.edificio} <br> Planta: ${data.planta} </p>`
+                      }
+                  })
+            }
             // If necessary, you could initiate an AJAX request here
             // and then do the updating in a callback.
             //
             // Update the modal's content.
-            var modalTitle = modal.querySelector('.modal-title')
-            var modalBody = modal.querySelector('.modal-body')
 
-            modalTitle.textContent = 'Descripción de ' + nombre
-            modalBody.textContent = descripcion
+            
         })
     </script>
 </html>

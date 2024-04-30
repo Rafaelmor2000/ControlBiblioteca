@@ -8,7 +8,11 @@ module.exports = {
             dataController.getListView(function(json){
                 for (let key in json){
                     let fecha = new Date(json[key].fecha).toLocaleDateString()
-                    let documento = new Documento(json[key].idDocumento, json[key].nombre, json[key].descripcion, fecha, json[key].tipo, json[key].direccion_fisica, json[key].direccion_virtual)
+                    let dir_vir = false
+                    if(json[key].direccion_virtual){
+                        dir_vir = true
+                    }
+                    let documento = new Documento(json[key].idDocumento, json[key].nombre, json[key].descripcion, fecha, json[key].tipo, json[key].direccion_fisica, dir_vir)
                     list.push(documento)
                 }
                 resolve(list)

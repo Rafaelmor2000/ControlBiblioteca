@@ -20,6 +20,12 @@ router.get('/getSeccionesByMueble', (req,res) => {
         res.send(list)
     })
 })
+router.get('/getSeccionData', (req,res) => {
+    id = req.query.id
+    seccionController.getData(id, function(data){
+        res.send(data)
+    })
+})
 
 router.post('/guardar', (req,res) => {
     if(req.body.nombre == "" || req.body.zona == undefined){

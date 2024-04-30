@@ -40,7 +40,7 @@
         Agregar Ubicación Fisica
     </button>
 
-    <div class="infoFisica">
+    <div id="infoFisica">
     </div>
 
     <br>
@@ -83,7 +83,7 @@
           
         </div>
         <div class="modal-footer">
-          <button id="resButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="resButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Borrar</button>
           <button id="agregarFis" type="button" class="btn btn-primary">Agregar Ubicación Fisica</button>
         </div>
       </div>
@@ -92,7 +92,7 @@
         
         
         <br>
-        <button id="resButton" type = "reset">Borrar</button>
+        <button id= "deleteButton" type = "reset"> Borrar </button>
         <button type="submit">Agregar informacion</button>
         </fieldset>
 
@@ -200,18 +200,34 @@
                       }
                   });
               })
-              $('#resButton').on('click', function(e){
+
+              $('#resButton').on('click', clearInfoFis)
+              $('#deleteButton').on('click', clearInfoFis)
+
+              function clearInfoFis(){
                 $('#edificios').html("")
                 $('#zonas').html("")
                 $('#muebles').html("")
                 $('#secciones').html("")
-              })
+                $('#infoFisica').html("")
+              }
+              
+
               $('#agregarFis').on('click', function(e){
                 let seccion = document.getElementById('seccion')
                 if(seccion == null){
                   alert("Falta llenar datos")
                 }
                 else{
+                  let id = seccion.value
+                  $.ajax({
+                      url: `/sistemaControlDocumentos/seccion/getSeccionData?id=${id}`,
+                      dataType: "json",
+                      success: function(data) {
+                        html = `<p> ${data.nombre} > ${data.mueble} > ${data.zona} > ${data.edificio} > ${data.planta} </p>`
+                        $('#infoFisica').html(html)
+                      }
+                  })
                   $('#exampleModal').modal('hide')
                 }
               })
