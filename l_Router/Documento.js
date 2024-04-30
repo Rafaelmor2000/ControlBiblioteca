@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const tipoController = require("../l_Service/tipo_documentoController")
 const documentoController = require("../l_Service/DocumentoController")
+const plantaController = require("../l_Service/PlantaController")
 const {upload} = require("../Utilities/multer")
 const Documento = require("../Utilities/documento")
 const { json } = require('body-parser')
@@ -15,8 +16,18 @@ router.get('/', (req, res) => {
 })
 
 router.get('/nuevo', (req, res) => {
-    let ans = tipoController.get(function(ans){
-        res.render("newDocumento", {tipo_documento: ans})
+    tipoPromise = new Promise((resolve) => {
+        tipoController.get(function(tipos){
+            resolve(tipos)
+        })
+    })
+    plantaPromise = new Promise((resolve) => {
+        plantaController.get(function(plantas){
+            resolve(plantas)
+        })
+    })
+    Promise.all([tipoPromise, plantaPromise]).then((values) => {
+        res.render("newDocumento", {tipo_documento: values[0], plantaList: values[1]})
     })
 })
 
