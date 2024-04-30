@@ -42,13 +42,11 @@ module.exports = {
             let list = []
             dataController.getByPlanta(id, function(json){
                 if(id != -1){
-                    dataController.getByPlanta(id,function(json){
-                        for (let key in json){
-                            let tipo = new Edificio(json[key].idEdificio, json[key].nombre, id)
-                            list.push(tipo)
-                        }
-                        resolve(list)
-                    })
+                    for (let key in json){
+                        let tipo = new Edificio(json[key].idEdificio, json[key].nombre, id)
+                        list.push(tipo)
+                    }
+                    resolve(list)
                 }
                 else{
                     resolve(list)

@@ -40,7 +40,7 @@
                 e.preventDefault()
                 let id = document.getElementById("planta").value
                 $.ajax({
-                    url: `/sistemaControlDocumentos/mueble/getEdificios?id=${id}`,
+                    url: `/sistemaControlDocumentos/edificio/getEdificiosByPlanta?id=${id}`,
                     dataType: "json",
                     success: function(data) {
                         var id, nombre, planta
@@ -65,7 +65,7 @@
                 let id = document.getElementById("edificio").value
                 console.log(id)
                 $.ajax({
-                    url: `/sistemaControlDocumentos/mueble/getZonas?id=${id}`,
+                    url: `/sistemaControlDocumentos/zona/getZonasByEdificio?id=${id}`,
                     dataType: "json",
                     success: function(data) {
                         var id, nombre, edificio

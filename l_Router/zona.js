@@ -15,10 +15,9 @@ router.get('/nuevo', (req, res) => {
     })
 })
 
-router.get('/getEdificios', (req,res) => {
-    let id = req.query.id
-    let list = zonaController.getEdificios(id, function(list){
-        list = JSON.parse(JSON.stringify(list))
+router.get('/getZonasByEdificio', (req, res) => {
+    id = req.query.id
+    zonaController.getByEdificio(id, function(list){
         res.send(list)
     })
 })
