@@ -1,3 +1,4 @@
+const { data } = require('jquery')
 const dataController = require('../l_DataAccess/documento')
 const Documento = require("../Utilities/documento")
 
@@ -20,6 +21,18 @@ module.exports = {
         })
         dataPromise.then(list => {
             callback(list)
+        })
+    },
+
+    descargar : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            dataController.getDirVir(id, function(dir){
+                console.log(dir)
+                resolve(dir)
+            })
+        })
+        dataPromise.then(dir => {
+            callback(dir)
         })
     },
 

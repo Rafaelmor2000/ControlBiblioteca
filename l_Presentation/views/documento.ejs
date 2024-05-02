@@ -26,7 +26,7 @@
                     <td><%= list[i].nombre %> </td>
                     <td>
                         <% if (list[i].descripcion != "") { %>
-                        <button data-bs-nombre='<%= list[i].nombre %>' data-bs-descripcion='<%= list[i].descripcion %>' type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#Modal">
+                        <button data-bs-nombre='<%= list[i].nombre %>' data-bs-descripcion='<%= list[i].descripcion %>' type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#Modal">
                             Descripción
                         </button>
                         <% } %>
@@ -35,14 +35,14 @@
                     <td><%= list[i].tipo %> </td>
                     <td>
                     <% if (list[i].direccion_fisica != null) { %>
-                         <button data-bs-id='<%= list[i].direccion_fisica %>' data-bs-nombre='<%= list[i].nombre %>' type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
+                         <button data-bs-id='<%= list[i].direccion_fisica %>' data-bs-nombre='<%= list[i].nombre %>' type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#Modal">
                             Ver
                         </button>
                     <% } %>
                     </td>
                     <td>
                     <% if (list[i].direccion_virtual) { %>
-                        <a href="">Descargar</a>
+                        <a href= "/sistemaControlDocumentos/descargarArchivo?id= <%= list[i].idDocumento %>" class = "btn btn-outline-primary"> Descargar</a>
                     <% } %>
                     </td>
                 </tr>
@@ -50,7 +50,7 @@
             </tbody>
         </table>
 
-        <a href="SistemaControlDocumentos/nuevo">Crear nuevo</a>
+        <a href="SistemaControlDocumentos/nuevo" class="btn btn-primary">Crear nuevo</a>
 
         <!-- Button trigger modal -->
 

@@ -1,4 +1,5 @@
 const express = require('express')
+
 const router = express.Router()
 const tipoController = require("../l_Service/tipo_documentoController")
 const documentoController = require("../l_Service/DocumentoController")
@@ -28,6 +29,14 @@ router.get('/nuevo', (req, res) => {
     })
     Promise.all([tipoPromise, plantaPromise]).then((values) => {
         res.render("newDocumento", {tipo_documento: values[0], plantaList: values[1]})
+    })
+})
+
+  
+router.get('/descargarArchivo', (req, res) => { 
+    let id = req.query.id
+    documentoController.descargar(id, function(file){
+        res.download(file);
     })
 })
 

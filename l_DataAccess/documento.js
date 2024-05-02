@@ -62,6 +62,26 @@ module.exports = {
         })
     },
 
+    getDirVir: (id, callback) => {
+        const dataPromise = new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if(err) throw err
+                connection.query('SELECT direccion_virtual FROM documento WHERE idDocumento = ?', id, (err, rows) => {
+                    connection.release() // return the connection to pool
+                    if (!err) {
+                        resolve(rows)
+                    } else {
+                        reject(console.log(err))
+                    }
+                })
+            })
+        })
+        dataPromise.then(rows => {
+            let json = JSON.parse(JSON.stringify(rows))
+            callback(json[0].direccion_virtual)
+        })
+    },
+
     saveNew : (params) => {
         pool.getConnection((err, connection) => {
             if(err) throw err
