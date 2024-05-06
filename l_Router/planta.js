@@ -1,4 +1,5 @@
 const express = require('express')
+const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const plantaController = require('../l_Service/PlantaController')
 
@@ -9,18 +10,23 @@ router.get('/', (req, res) => {
 })
 
 router.get('/nuevo', (req, res) => {
-    res.render("newPlanta")
+    res.render("newPlanta", {errors: ''})
 })
 
-router.post('/guardar', (req,res) => {
-    if(req.body.nombre == "" || req.body.ciudad == "" || req.body.estado == ""){
-        console.log("no se introdujo toda la informacion necesaria")
-        res.redirect('./nuevo')
-    }
-    else{
-        plantaController.guardar(req.body)
-        res.redirect('/sistemaControlDocumentos/planta/')
-    }
+router.post('/guardar', [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('ciudad').notEmpty().withMessage('No se introdujo Ciudad'),
+    check('estado').notEmpty().withMessage('No se introdujo Estado'),
+    ], (req,res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()){
+            res.render("newPlanta", {errors : errors.mapped()})
+        }
+        else{
+            plantaController.guardar(req.body)
+            res.redirect('/sistemaControlDocumentos/planta/')
+        }
 })
 
 

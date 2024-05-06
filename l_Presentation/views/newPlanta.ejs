@@ -9,12 +9,23 @@
     <form action="./guardar" method="POST">
         <fieldset>
         <label for="nombre">Nombre de la planta:</label> 
-        <input type="text" name="nombre"/> <br><br>
+        <input type="text" name="nombre"/> 
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
+        <br><br>
         <label for="ciudad">Ciudad:</label> 
-        <input type="text" name="ciudad"/> <br><br>
+        <input type="text" name="ciudad"/>
+        <% if(errors && errors.ciudad) { %>
+            <span class="text-danger"><%= errors.ciudad.msg %></span>
+        <% } %>
+        <br><br>
         <label for="estado">Estado:</label> 
-        <input type="text" name="estado" /> <br>
-        <br>
+        <input type="text" name="estado" />
+        <% if(errors && errors.estado) { %>
+            <span class="text-danger"><%= errors.estado.msg %></span>
+        <% } %>
+        <br><br>
         <button type = "reset">Borrar</button>
         <button type="submit">Crear</button>
         </fieldset>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2024 a las 09:28:15
+-- Tiempo de generación: 07-05-2024 a las 00:45:07
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -70,6 +70,17 @@ CREATE TABLE `documento` (
   `direccion_virtual` varchar(140) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `documento`
+--
+
+INSERT INTO `documento` (`idDocumento`, `nombre`, `descripcion`, `fecha`, `tipo`, `direccion_fisica`, `direccion_virtual`) VALUES
+(1, 'noFisnoVir', 'Documento de prueba', '2024-04-27', 1, NULL, NULL),
+(2, 'correspondencia', 'Correos entre personas', '2024-04-29', 3, NULL, NULL),
+(5, 'documento viejo', '', '2019-07-10', 1, NULL, 'uploads\\3. Formato Carta Finiquito SSP.docx'),
+(6, 'documento con Ubi Fis', 'este documento contiene una ubicacion fisica', '2024-04-30', 2, 4, NULL),
+(7, 'documento de prueba', 'Pruebas y pruebas', '2024-05-01', 5, 2, 'uploads\\TestDocumento.txt');
+
 -- --------------------------------------------------------
 
 --
@@ -128,6 +139,16 @@ CREATE TABLE `edificio` (
   `planta` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `edificio`
+--
+
+INSERT INTO `edificio` (`idEdificio`, `nombre`, `planta`) VALUES
+(1, 'oficinas', 1),
+(2, 'edificio vigilancia', 1),
+(3, 'oficinas Corporativo', 2),
+(9, 'edificio C', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -164,6 +185,16 @@ CREATE TABLE `mueble` (
   `zona` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `mueble`
+--
+
+INSERT INTO `mueble` (`idMueble`, `nombre`, `zona`) VALUES
+(1, 'mueble A', 2),
+(2, 'mueble 2', 3),
+(3, 'edVigOfCMueble A', 3),
+(6, 'mueble detras', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -194,7 +225,12 @@ CREATE TABLE `planta` (
 --
 
 INSERT INTO `planta` (`idPlanta`, `nombre`, `ciudad`, `estado`) VALUES
-(1, 'CGV', 'Valladolid', 'Yucatán');
+(1, 'CGV', 'Valladolid', 'Yucatan'),
+(2, 'oficinas Corporativo', 'CDMX', 'CDMX'),
+(3, 'nombre', 'ciudad', 'estado'),
+(8, 'sadgasdg', 'asdgasdg', 'asdgasdg'),
+(9, 'asdgasdh', 'asdhafdh', 'asdhasdfhs'),
+(10, 'asdhafdshs', 'jsdfgjsgdfj', 'sjdfgsgj');
 
 -- --------------------------------------------------------
 
@@ -207,6 +243,16 @@ CREATE TABLE `seccion` (
   `nombre` varchar(45) DEFAULT NULL,
   `idMueble` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `seccion`
+--
+
+INSERT INTO `seccion` (`idSeccion`, `nombre`, `idMueble`) VALUES
+(1, 'seccion C', 2),
+(2, 'seccion A', 3),
+(4, 'seccion 1', 6),
+(5, 'seccion 2', 3);
 
 -- --------------------------------------------------------
 
@@ -231,6 +277,17 @@ CREATE TABLE `tipodocumento` (
   `clasificacion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tipodocumento`
+--
+
+INSERT INTO `tipodocumento` (`idTipo`, `nombre`, `clasificacion`) VALUES
+(1, 'plano', 2),
+(2, 'contrato trabajadores', 4),
+(3, 'correspondencia', 5),
+(4, 'auditoria general', 3),
+(5, 'redline', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -242,6 +299,17 @@ CREATE TABLE `zona` (
   `nombre` varchar(45) DEFAULT NULL,
   `edificio` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `zona`
+--
+
+INSERT INTO `zona` (`idZona`, `nombre`, `edificio`) VALUES
+(1, 'sombrero', 1),
+(2, 'Oficina A', 3),
+(3, 'oficina C', 2),
+(4, 'oficina B', 2),
+(5, 'oficina Fidel', 1);
 
 --
 -- Índices para tablas volcadas
@@ -382,13 +450,13 @@ ALTER TABLE `clasificacion`
 -- AUTO_INCREMENT de la tabla `documento`
 --
 ALTER TABLE `documento`
-  MODIFY `idDocumento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDocumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `edificio`
 --
 ALTER TABLE `edificio`
-  MODIFY `idEdificio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEdificio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
@@ -406,7 +474,7 @@ ALTER TABLE `marca_fabricante`
 -- AUTO_INCREMENT de la tabla `mueble`
 --
 ALTER TABLE `mueble`
-  MODIFY `idMueble` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMueble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `norma`
@@ -418,13 +486,13 @@ ALTER TABLE `norma`
 -- AUTO_INCREMENT de la tabla `planta`
 --
 ALTER TABLE `planta`
-  MODIFY `idPlanta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idPlanta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  MODIFY `idSeccion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idSeccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `sistema`
@@ -436,13 +504,13 @@ ALTER TABLE `sistema`
 -- AUTO_INCREMENT de la tabla `tipodocumento`
 --
 ALTER TABLE `tipodocumento`
-  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `zona`
 --
 ALTER TABLE `zona`
-  MODIFY `idZona` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idZona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

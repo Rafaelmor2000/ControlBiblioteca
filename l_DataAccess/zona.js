@@ -18,7 +18,6 @@ module.exports = {
         })
         dataPromise.then(rows => {
             let json = JSON.parse(JSON.stringify(rows))
-            console.log(json)
             callback(json)
         })
     },
