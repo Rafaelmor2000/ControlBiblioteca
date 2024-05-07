@@ -1,5 +1,5 @@
 const express = require('express')
-
+const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const tipoController = require("../l_Service/tipo_documentoController")
 const documentoController = require("../l_Service/DocumentoController")
@@ -28,7 +28,7 @@ router.get('/nuevo', (req, res) => {
         })
     })
     Promise.all([tipoPromise, plantaPromise]).then((values) => {
-        res.render("newDocumento", {tipo_documento: values[0], plantaList: values[1]})
+        res.render("newDocumento", {tipo_documento: values[0], plantaList: values[1], errors: ""})
     })
 })
 
@@ -40,14 +40,34 @@ router.get('/descargarArchivo', (req, res) => {
     })
 })
 
-router.post('/guardar', upload.single('file'), (req,res) => {
-    if(req.body.nombre == "" || req.body.fecha == "" || req.body.tipo == -1){
-        console.log("no se introdujo toda la informacion necesaria")
+router.post('/guardar',
+    upload.single('file'),
+    [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('tipo').isInt({min: 0}).withMessage('Seleccion de tipo inválida'),
+    check('fecha').notEmpty().withMessage('No se introdujo Fecha'),
+    ],
+    (req, res) => {
+
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        tipoPromise = new Promise((resolve) => {
+            tipoController.get(function(tipos){
+                resolve(tipos)
+            })
+        })
+        plantaPromise = new Promise((resolve) => {
+            plantaController.get(function(plantas){
+                resolve(plantas)
+            })
+        })
+        Promise.all([tipoPromise, plantaPromise]).then((values) => {
+            res.render("newDocumento", {tipo_documento: values[0], plantaList: values[1], errors: errors.mapped()})
+        })
 
     }
     else{
         documento = new Documento (null, req.body.nombre, req.body.descripcion, req.body.fecha, req.body.tipo, null, null)
-        var file = req.file
         virPromise = new Promise((resolve) => {
             if(req.file){
                 fileData = JSON.parse(JSON.stringify(req.file))
@@ -74,11 +94,6 @@ router.post('/guardar', upload.single('file'), (req,res) => {
         });
         
         res.redirect("/sistemaControlDocumentos")
-
-    
-        // let tipo = tipoController.getById(req.body.tipo, function(tipo){
-        //     console.log("clasificacion " + tipo.clasificacion)
-        // })
     }
 })
 

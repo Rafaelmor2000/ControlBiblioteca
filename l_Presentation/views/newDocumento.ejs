@@ -9,6 +9,9 @@
         <fieldset>
         <label for="nombre">Nombre del Documento:</label> 
         <input type="text" id="nombre" name="nombre">
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
         <br>
 
         <label for="descripcion">Descripción:</label> <br>
@@ -18,17 +21,25 @@
 
         <label for="fecha">Fecha del documento: </label>
         <input id="fecha" name= "fecha" type="date">
+        <% if(errors && errors.fecha) { %>
+            <span class="text-danger"><%= errors.fecha.msg %></span>
+        <% } %>
         <br><br>
 
         
         <label for="tipo">Tipo: </label>
+        <br>
         <select class="form-select" aria-label="Default select example" name="tipo"  id="tipo">
             <option selected value="-1"> Hacer selección </option>
             <% for(let i in tipo_documento) { %>
                 <option value='<%= tipo_documento[i].id %>'> <%= tipo_documento[i].nombre %> </option>
             <% } %>
         </select>
-        <br>
+        <% if(errors && errors.tipo) { %>
+            <span class="text-danger"><%= errors.tipo.msg %></span>
+        <% } %>
+        <br><br>
+        
 
         <label for="file">Cargar Archivo: </label>
         <input type="file" id="file" name="file">
@@ -98,7 +109,7 @@
 
     </form>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>     
-          <script>
+    <script>
               $('#planta').on('change', function(e) {
                   e.preventDefault()
                   let id = document.getElementById("planta").value
@@ -231,5 +242,5 @@
                   $('#exampleModal').modal('hide')
                 }
               })
-          </script>
+    </script>
 </html>
