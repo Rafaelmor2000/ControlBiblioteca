@@ -9,6 +9,9 @@
         <fieldset>
         <label for="nombre">Nombre de la Seccion:</label> 
         <input type="text" id="nombre" name="nombre">
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
         <br>
         
         <label for="planta">Planta: </label>
@@ -32,7 +35,10 @@
             <div id = "muebles">
             </div>
         </fieldset>
-
+        <% if(errors && errors.mueble) { %>
+            <span class="text-danger"><%= errors.mueble.msg %></span>
+            <br>
+        <% } %>
         <br>
         <button type = "reset">Borrar</button>
         <button type="submit">Crear</button>
