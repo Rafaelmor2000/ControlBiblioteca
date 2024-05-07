@@ -9,6 +9,9 @@
         <fieldset>
         <label for="nombre">Nombre de la Zona (Area u Oficina):</label> 
         <input type="text" id="nombre" name="nombre">
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
         <br>
         
         <label for="planta">Planta: </label>
@@ -24,7 +27,10 @@
                     <div id = "edificios">
                     </div>
         </fieldset>
-
+        <% if(errors && errors.edificio) { %>
+            <span class="text-danger"><%= errors.edificio.msg %></span>
+            <br>
+        <% } %>
         <br>
         <button type = "reset">Borrar</button>
         <button type="submit">Crear</button>

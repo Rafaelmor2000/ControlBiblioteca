@@ -1,4 +1,5 @@
 const express = require('express')
+const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const muebleController = require('../l_Service/MuebleController')
 
@@ -10,7 +11,7 @@ router.get('/', (req, res) => {
 
 router.get('/nuevo', (req, res) => {
     let ans = muebleController.nuevo(function(ans){
-        res.render("newMueble", {plantaList: ans})
+        res.render("newMueble", {plantaList: ans, errors: ""})
     })
 })
 
@@ -21,12 +22,18 @@ router.get('/getMueblesByZona', (req,res) => {
     })
 })
 
-router.post('/guardar', (req,res) => {
-    if(req.body.nombre == "" || req.body.zona == undefined){
-        console.log("no se introdujo toda la informacion necesaria")
-        console.log(req.body)
-        res.redirect('./nuevo')
+router.post('/guardar', [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('zona').notEmpty().withMessage('No se introdujo Zona'),
+], (req,res) => {
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()){
+        muebleController.nuevo(function(list){
+            res.render("newMueble", {plantaList: list, errors: errors.mapped()})
+        })
     }
+
     else{
         let params = {nombre: req.body.nombre, zona: req.body.zona} 
         muebleController.guardar(params)

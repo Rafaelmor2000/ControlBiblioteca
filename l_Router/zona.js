@@ -1,7 +1,7 @@
 const express = require('express')
+const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const zonaController = require('../l_Service/zonaController')
-const PlantaController = require('../l_Service/PlantaController')
 
 router.get('/', (req, res) => {
     let list = zonaController.get(function(list){
@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 router.get('/nuevo', (req, res) => {
     let ans = zonaController.nuevo(function(ans){
-        res.render("newZona", {plantaList: ans})
+        res.render("newZona", {plantaList: ans, errors: ""})
     })
 })
 
@@ -22,11 +22,16 @@ router.get('/getZonasByEdificio', (req, res) => {
     })
 })
 
-router.post('/guardar', (req,res) => {
-    if(req.body.nombre == "" || req.body.edificio == undefined){
-        console.log("no se introdujo toda la informacion necesaria")
-        console.log(req.body)
-        res.redirect('./nuevo')
+router.post('/guardar', [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('edificio').notEmpty().withMessage('No se introdujo Edificio'),
+], (req,res) => {
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()){
+        zonaController.nuevo(function(list){
+            res.render("newZona", {plantaList: list, errors: errors.mapped()})
+        })
     }
     else{
         let params = {nombre: req.body.nombre, edificio: req.body.edificio} 

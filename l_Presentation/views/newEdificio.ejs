@@ -9,13 +9,21 @@
         <fieldset>
         <label for="nombre">Nombre del Edificio:</label> 
         <input type="text" name="nombre"/>
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
         <fieldset name="opciones">
         <legend>Planta:</legend>
+        
         <% for(let i in list) { %>
                 <input type="radio" id='<%= list[i].id %>' name="planta" value='<%= list[i].id %>'>
                 <label for='<%= list[i].id %>'> <%= list[i].nombre %> </label><br>
         <% } %>
         </fieldset>
+        <% if(errors && errors.planta) { %>
+            <span class="text-danger"><%= errors.planta.msg %></span>
+            <br>
+        <% } %>
 
         <br>
         <button type = "reset">Borrar</button>

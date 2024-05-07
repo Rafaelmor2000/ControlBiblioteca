@@ -1,4 +1,5 @@
 const express = require('express')
+const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const edificioController = require('../l_Service/EdificioController')
 
@@ -9,8 +10,8 @@ router.get('/', (req, res) => {
 })
 
 router.get('/nuevo', (req, res) => {
-    let list = edificioController.nuevo(function(list){
-        res.render("newEdificio", {list: list})
+    edificioController.nuevo(function(list){
+        res.render("newEdificio", {list: list, errors: ""})
     })
 })
 
@@ -21,10 +22,16 @@ router.get('/getEdificiosByPlanta', (req,res) => {
     })
 })
 
-router.post('/guardar', (req,res) => {
-    if(req.body.nombre == "" || req.body.planta == undefined){
-        console.log("no se introdujo toda la informacion necesaria")
-        res.redirect('./nuevo')
+router.post('/guardar', [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('planta').notEmpty().withMessage('No se introdujo Planta'),
+    ], (req,res) => {
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()){
+        edificioController.nuevo(function(list){
+            res.render("newEdificio", {list: list, errors: errors.mapped()})
+        })
     }
     else{
         edificioController.guardar(req.body)
