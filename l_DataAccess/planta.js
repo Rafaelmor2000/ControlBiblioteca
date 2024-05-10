@@ -54,5 +54,19 @@ module.exports = {
                 }
             })
         })
+    },
+
+    deleteEntry : (id) => {
+        pool.getConnection((err, connection) => {
+            if(err) throw err
+            connection.query('DELETE FROM planta WHERE idPlanta = ?', id, (err, rows) => {
+                connection.release()
+                if (!err) {
+                    console.log(`planta con id ${id} ha sido eliminada`)
+                } else {
+                    console.log(err)
+                }
+            })
+        })
     }
 }

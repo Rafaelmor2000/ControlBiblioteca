@@ -85,11 +85,24 @@ module.exports = {
     saveNew : (params) => {
         pool.getConnection((err, connection) => {
             if(err) throw err
-            const {idDocumento, nombre, descripcion, fecha, tipo, direccion_fisica, direccion_virtual} = params
             connection.query('INSERT INTO documento SET ?', params, (err, rows) => {
                 connection.release()
                 if (!err) {
                     console.log("exito guardando")
+                } else {
+                    console.log(err)
+                }
+            })
+        })
+    },
+
+    deleteEntry : (id) => {
+        pool.getConnection((err, connection) => {
+            if(err) throw err
+            connection.query('DELETE FROM documento WHERE idDocumento = ?', id, (err, rows) => {
+                connection.release()
+                if (!err) {
+                    console.log(`documento con id ${id} ha sido eliminado`)
                 } else {
                     console.log(err)
                 }

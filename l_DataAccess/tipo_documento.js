@@ -94,5 +94,19 @@ module.exports = {
                 }
             })
         })
+    },
+
+    deleteEntry : (id) => {
+        pool.getConnection((err, connection) => {
+            if(err) throw err
+            connection.query('DELETE FROM tipoDocumento WHERE idTipo = ?', id, (err, rows) => {
+                connection.release()
+                if (!err) {
+                    console.log(`Tipo de documento con id ${id} ha sido eliminado`)
+                } else {
+                    console.log(err)
+                }
+            })
+        })
     }
 }
