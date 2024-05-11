@@ -101,6 +101,7 @@ router.post('/guardar',
         Promise.all([virPromise, fisPromise]).then(() => {
             console.log(documento)
             documentoController.guardar(documento)
+            documento = null
         });
         
         res.redirect("/sistemaControlDocumentos")
