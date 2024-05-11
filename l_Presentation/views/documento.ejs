@@ -19,6 +19,7 @@
                 <th>Tipo</th>
                 <th>Ubicación física</th>
                 <th>Descargar Documento</th>
+                <th>Acciones</th>
 
             </tr>
             </thead>
@@ -47,6 +48,12 @@
                     <% if (list[i].direccion_virtual) { %>
                         <a href= "/sistemaControlDocumentos/descargarArchivo?id= <%= list[i].idDocumento %>" class = "btn btn-outline-primary"> Descargar</a>
                     <% } %>
+                    </td>
+                    <td>
+                        <form method="POST" action="/sistemaControlDocumentos/<%= list[i].idDocumento %>">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class= "btn btn-danger">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
             <% } %>

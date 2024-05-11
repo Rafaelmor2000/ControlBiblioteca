@@ -1,10 +1,9 @@
-const bodyParser = require('body-parser');
 const express = require('express');
+
 const port = require('./Utilities/port')
 var path = require('path')
 
 const app = express();
-
 
 
 app.use(express.urlencoded({extended: true}));

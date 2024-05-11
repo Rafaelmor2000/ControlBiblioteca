@@ -41,5 +41,9 @@ module.exports = {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)
         dataController.saveNew(params)
+    },
+
+    borrar : (id) => {
+        dataController.deleteEntry(id)
     }
 }
