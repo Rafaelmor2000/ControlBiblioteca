@@ -4,12 +4,16 @@
     <body>
         <%- include("../partials/navbar") %>
         <h1> Tipos de Documento </h1>
+        <% if (errors != "") { %>
+            <span class="text-danger"><%= errors %></span>
+        <% } %>
         <table  class="table table-bordered">
             <thead class="table-dark">
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">nombre</th>
-                <th scope="col">clasificacion</th>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Clasificacion</th>
+                <th>Acciones</th> 
             </tr>
             </thead>
             <tbody>
@@ -18,6 +22,12 @@
                     <th><%= list[i].id %> </th>
                     <td><%= list[i].nombre %> </td>
                     <td><%= list[i].clasificacion %> </td>
+                    <td>
+                        <form method="POST" action="/sistemaControlDocumentos/tipo_documento/<%= list[i].id %>?nombre=<%= list[i].nombre %>">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class= "btn btn-danger" onclick="return confirm('Desea borrar el tipo de documento <%= list[i].nombre %>')">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
             <% } %>
             </tbody>

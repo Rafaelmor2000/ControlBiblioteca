@@ -1,4 +1,5 @@
 const dataController = require('../l_DataAccess/tipo_documento')
+const documentoController = require('../l_Service/DocumentoController')
 const tipo_documento = require('../Utilities/tipo_documento')
 const clasificacion = require('../Utilities/clasificacion')
 
@@ -52,5 +53,22 @@ module.exports = {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)
         dataController.saveNew(params)
+    },
+
+    borrar : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            documentoController.getByType(id, function(json){
+                if(json.length != 0){
+                    resolve(false)
+                }
+                else{
+                    dataController.deleteEntry(id)
+                    resolve(true)
+                }
+            })
+        })
+        dataPromise.then(isDeleted => {
+            callback(isDeleted)
+        })
     }
 }
