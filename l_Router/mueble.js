@@ -2,10 +2,20 @@ const express = require('express')
 const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const muebleController = require('../l_Service/MuebleController')
+const methodOverride = require('method-override');
+
+router.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
 
 router.get('/', (req, res) => {
     let list = muebleController.get(function(list){
-        res.render("mueble", {list: list})
+        res.render("mueble", {list: list, errors: ""})
     })
 })
 
@@ -39,6 +49,23 @@ router.post('/guardar', [
         muebleController.guardar(params)
         res.redirect('/sistemaControlDocumentos/mueble/')
     }
+})
+
+router.delete('/:id', (req, res) => {
+    let id = req.params.id
+    let nombre = req.query.nombre
+    isDeleted = false
+    muebleController.borrar(id, function(isDeleted){
+        if(!isDeleted){
+            muebleController.get(function(list){
+                res.render("mueble", {list: list, errors: `no se puede borrar el mueble "${nombre}" porque está siendo usada por alguna sección`})
+            })
+        }
+        else{
+            res.redirect("/sistemaControlDocumentos/mueble")
+        }
+    })
+    
 })
 
 

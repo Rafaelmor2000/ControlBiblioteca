@@ -45,7 +45,7 @@ router.delete('/:id', (req, res) => {
     isDeleted = false
     plantaController.borrar(id, function(isDeleted){
         if(!isDeleted){
-            let list = plantaController.get(function(list){
+            plantaController.get(function(list){
                 res.render("planta", {list: list, errors: `no se puede borrar la planta "${nombre}" porque está siendo usado por algun edificio`})
             })
         }
