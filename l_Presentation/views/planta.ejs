@@ -4,13 +4,17 @@
     <body>
         <%- include("../partials/navbar") %>
         <h1> Plantas </h1>
+        <% if (errors != "") { %>
+            <span class="text-danger"><%= errors %></span>
+        <% } %>
         <table  class="table table-bordered">
             <thead class="table-dark">
             <tr>
                 <th>id</th>
-                <th>nombre</th>
-                <th>ciudad</th>
-                <th>estado</th>
+                <th>Nombre</th>
+                <th>Ciudad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -20,6 +24,12 @@
                     <td><%= list[i].nombre %> </td>
                     <td><%= list[i].ciudad %> </td>
                     <td><%= list[i].estado %></td>
+                    <td>
+                        <form method="POST" action="/sistemaControlDocumentos/planta/<%= list[i].id %>?nombre=<%= list[i].nombre %>">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class= "btn btn-danger" onclick="return confirm('Desea borrar la planta <%= list[i].nombre %>?')">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
             <% } %>
             </tbody>
