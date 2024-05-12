@@ -6,12 +6,16 @@
         <%- include("../partials/navbar") %>
 
         <h1> Edificios </h1>
+        <% if (errors != "") { %>
+            <span class="text-danger"><%= errors %></span>
+        <% } %>
         <table  class="table table-bordered">
             <thead class="table-dark">
             <tr>
                 <th>id</th>
-                <th>nombre</th>
-                <th>planta</th>
+                <th>Nombre</th>
+                <th>Planta</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -20,6 +24,12 @@
                     <th><%= list[i].id %> </th>
                     <td><%= list[i].nombre %> </td>
                     <td><%= list[i].planta %> </td>
+                    <td>
+                        <form method="POST" action="/sistemaControlDocumentos/edificio/<%= list[i].id %>?nombre=<%= list[i].nombre %>">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class= "btn btn-danger" onclick="return confirm('Desea borrar el edificio <%= list[i].nombre %>')">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
             <% } %>
             </tbody>
