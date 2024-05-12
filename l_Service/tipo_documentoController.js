@@ -57,14 +57,8 @@ module.exports = {
 
     borrar : (id, callback) => {
         const dataPromise = new Promise((resolve) => {
-            documentoController.getByType(id, function(json){
-                if(json.length != 0){
-                    resolve(false)
-                }
-                else{
-                    dataController.deleteEntry(id)
-                    resolve(true)
-                }
+            dataController.deleteEntry(id, function(isDeleted){
+                resolve(isDeleted)
             })
         })
         dataPromise.then(isDeleted => {
