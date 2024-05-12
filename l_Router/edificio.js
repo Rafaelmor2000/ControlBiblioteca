@@ -56,7 +56,7 @@ router.delete('/:id', (req, res) => {
     edificioController.borrar(id, function(isDeleted){
         if(!isDeleted){
             let list = edificioController.get(function(list){
-                res.render("edificio", {list: list, errors: `no se puede borrar el tipo de dato "${nombre}" porque está siendo usado por algún documento`})
+                res.render("edificio", {list: list, errors: `no se puede borrar el edificio "${nombre}" porque está siendo usado por alguna zona`})
             })
         }
         else{

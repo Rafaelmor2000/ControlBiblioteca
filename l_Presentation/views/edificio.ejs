@@ -27,7 +27,7 @@
                     <td>
                         <form method="POST" action="/sistemaControlDocumentos/edificio/<%= list[i].id %>?nombre=<%= list[i].nombre %>">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class= "btn btn-danger" onclick="return confirm('Desea borrar el edificio <%= list[i].nombre %>')">Eliminar</button>
+                            <button type="submit" class= "btn btn-danger" onclick="return confirm('Desea borrar el edificio <%= list[i].nombre %>?')">Eliminar</button>
                         </form>
                     </td>
                 </tr>
