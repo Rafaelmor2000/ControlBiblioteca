@@ -72,6 +72,6 @@ module.exports = {
         })
         dataPromise.then(isDeleted => {
             callback(isDeleted)
-        })
+       })
     }
 }
