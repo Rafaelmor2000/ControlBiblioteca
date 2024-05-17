@@ -11,6 +11,10 @@
         <fieldset>
         <label for="nombre">Nombre del tipo:</label> 
         <input type="text" name="nombre" value="<%= tipo.nombre %>"/>
+        
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
         <br>
         <br>
         <a href="./"  class="btn btn-secondary">Cancelar</a>

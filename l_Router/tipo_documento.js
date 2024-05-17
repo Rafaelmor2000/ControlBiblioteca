@@ -47,17 +47,28 @@ router.get('/editar', (req, res) => {
     let id = req.query.id
     tipoController.getById(id, function(ans){
         tipo_documento = ans
-        res.render("editTipoDocumento", {tipo: tipo_documento})
+        res.render("editTipoDocumento", {tipo: tipo_documento, errors: ""})
     })
 })
 
-router.put('/:id', (req, res) => {
-    if (tipo_documento){
-        tipo_documento.nombre = req.body.nombre
-        tipoController.actualizar(tipo_documento)
-        tipo_documento = null
+router.put('/:id', [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre')]
+    , (req, res) => {
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()){
+        tipoController.nuevo(function(list){
+            res.render("editTipoDocumento", {tipo: tipo_documento, errors: errors.mapped()})
+        })
     }
-    res.redirect('/sistemaControlDocumentos/tipo_documento/')
+    else{ 
+        if (tipo_documento){
+            tipo_documento.nombre = req.body.nombre
+            tipoController.actualizar(tipo_documento)
+            tipo_documento = null
+        }
+        res.redirect('/sistemaControlDocumentos/tipo_documento/')
+    }
 
 })
 
