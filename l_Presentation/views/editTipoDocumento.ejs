@@ -1,0 +1,21 @@
+<html>
+    <%- include("../partials/head") %>
+
+<body>
+    
+    <%- include("../partials/navbar") %>
+
+    <h1>Editar tipo de documento "<%= tipo.nombre %>"</h1>
+    <form action="./<%= tipo.id %>" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+        <fieldset>
+        <label for="nombre">Nombre del tipo:</label> 
+        <input type="text" name="nombre" value="<%= tipo.nombre %>"/>
+        <br>
+        <br>
+        <a href="./"  class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-info">Actualizar</button>
+        </fieldset>
+    </form>
+</body>
+</html>

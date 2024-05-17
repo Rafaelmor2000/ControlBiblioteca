@@ -55,6 +55,11 @@ module.exports = {
         dataController.saveNew(params)
     },
 
+    actualizar : (tipo) => {
+        params = JSON.parse(JSON.stringify(tipo))
+        dataController.update(params)
+    },
+
     borrar : (id, callback) => {
         const dataPromise = new Promise((resolve) => {
             dataController.deleteEntry(id, function(isDeleted){

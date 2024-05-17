@@ -81,6 +81,7 @@ module.exports = {
             callback(json)
         })
     },
+
     saveNew : (params) => {
         pool.getConnection((err, connection) => {
             if(err) throw err
@@ -92,6 +93,23 @@ module.exports = {
                 } else {
                     console.log(err)
                 }
+            })
+        })
+    },
+
+    update : (params) => {
+        pool.getConnection((err, connection) => {
+            if(err) throw err
+            const {id, nombre, clasificacion} = params
+            connection.query('UPDATE tipodocumento SET nombre = ?, clasificacion = ? WHERE idTipo = ?', [nombre, clasificacion, id] , (err, rows) => {
+                connection.release() // return the connection to pool
+
+                if(!err) {
+                    console.log(`Se ha actualizado el tipo de documento: ${nombre}`)
+                } else {
+                    console.log(err)
+                }
+
             })
         })
     },

@@ -3,6 +3,7 @@ const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const tipoController = require('../l_Service/tipo_documentoController')
 const methodOverride = require('method-override');
+var tipo_documento = null
 
 router.use(methodOverride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -40,6 +41,24 @@ router.post('/guardar',[
         tipoController.guardar(req.body)
         res.redirect('/sistemaControlDocumentos/tipo_documento/')
     }
+})
+
+router.get('/editar', (req, res) => {
+    let id = req.query.id
+    tipoController.getById(id, function(ans){
+        tipo_documento = ans
+        res.render("editTipoDocumento", {tipo: tipo_documento})
+    })
+})
+
+router.put('/:id', (req, res) => {
+    if (tipo_documento){
+        tipo_documento.nombre = req.body.nombre
+        tipoController.actualizar(tipo_documento)
+        tipo_documento = null
+    }
+    res.redirect('/sistemaControlDocumentos/tipo_documento/')
+
 })
 
 router.delete('/:id', (req, res) => {
