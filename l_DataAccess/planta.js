@@ -81,7 +81,6 @@ module.exports = {
         pool.getConnection((err, connection) => {
             if(err) throw err
             const {id, nombre, ciudad, estado} = params
-            console.log(params)
             connection.query('UPDATE planta SET nombre = ?, ciudad = ?, estado = ? WHERE idPlanta = ?', [nombre, ciudad, estado, id] , (err, rows) => {
                 connection.release() // return the connection to pool
 

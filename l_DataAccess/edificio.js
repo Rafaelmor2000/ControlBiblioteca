@@ -41,6 +41,26 @@ module.exports = {
         })
     },
 
+    getById: (id, callback) => {
+        const dataPromise = new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if(err) throw err
+                connection.query('SELECT * FROM edificio where idEdificio = ?', id, (err, rows) => {
+                    connection.release() // return the connection to pool
+                    if (!err) {
+                        resolve(rows)
+                    } else {
+                        reject(console.log(err))
+                    }
+                })
+            })
+        })
+        dataPromise.then(rows => {
+            let json = JSON.parse(JSON.stringify(rows))
+            callback(json)
+        })
+    },
+
     getByPlanta: (id, callback) =>{
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
@@ -72,6 +92,23 @@ module.exports = {
                 } else {
                     console.log(err)
                 }
+            })
+        })
+    },
+
+    update : (params) => {
+        pool.getConnection((err, connection) => {
+            if(err) throw err
+            const {id, nombre, planta} = params
+            connection.query('UPDATE edificio SET nombre = ?, planta = ? WHERE idEdificio = ?', [nombre, planta, id] , (err, rows) => {
+                connection.release() // return the connection to pool
+
+                if(!err) {
+                    console.log(`Se ha actualizado el edificio: ${nombre}`)
+                } else {
+                    console.log(err)
+                }
+
             })
         })
     },

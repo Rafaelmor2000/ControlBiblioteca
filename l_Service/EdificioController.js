@@ -1,3 +1,4 @@
+const edificio = require('../l_DataAccess/edificio')
 const dataController = require('../l_DataAccess/edificio')
 const plantaController = require('../l_DataAccess/planta')
 const Edificio = require('../Utilities/edificio')
@@ -38,6 +39,20 @@ module.exports = {
         })
     },
 
+    getById : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            let list = []
+            dataController.getById(id, function(json){
+                
+                let edificio = new Edificio(json[0].idEdificio, json[0].nombre, json[0].planta)
+                resolve(edificio)
+            })
+        })
+        dataPromise.then(edificio => {
+            callback(edificio)
+        })
+    },
+
     getByPlanta : (id, callback) => {
         const dataPromise = new Promise((resolve) => {
             let list = []
@@ -63,6 +78,11 @@ module.exports = {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)
         dataController.saveNew(params)
+    },
+    
+    actualizar : (edificio) => {
+        params = JSON.parse(JSON.stringify(edificio))
+        dataController.update(params)
     },
 
     borrar : (id, callback) => {
