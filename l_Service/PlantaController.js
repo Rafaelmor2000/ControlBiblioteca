@@ -28,11 +28,28 @@ module.exports = {
             callback(name)
         })
     },
+
+    getById : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            dataController.getById(id, function(json){
+                planta = new Planta(json[0].idPlanta, json[0].nombre, json[0].ciudad, json[0].estado)
+                resolve(planta)
+            })
+        })
+        dataPromise.then(planta => {
+            callback(planta)
+        })
+    },
     
     guardar : (body) => {
         let params = JSON.parse(JSON.stringify(body))
         console.log(params)
         dataController.saveNew(params)
+    },
+
+    actualizar : (planta) => {
+        params = JSON.parse(JSON.stringify(planta))
+        dataController.update(params)
     },
 
     borrar : (id, callback) => {

@@ -1,0 +1,35 @@
+<html>
+    <%- include("../partials/head") %>
+
+
+<body>
+    <%- include("../partials/navbar") %>
+
+    <h1>Editar Planta "<%=planta.nombre%>"</h1>
+    <form action="./<%= planta.id %>" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+        <fieldset>
+        <label for="nombre">Nombre de la planta:</label> 
+        <input type="text" name="nombre" value="<%= planta.nombre %>"/> 
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
+        <br><br>
+        <label for="ciudad">Ciudad:</label> 
+        <input type="text" name="ciudad" value="<%= planta.ciudad %>"/>
+        <% if(errors && errors.ciudad) { %>
+            <span class="text-danger"><%= errors.ciudad.msg %></span>
+        <% } %>
+        <br><br>
+        <label for="estado">Estado:</label> 
+        <input type="text" name="estado" value="<%= planta.estado %>"/>
+        <% if(errors && errors.estado) { %>
+            <span class="text-danger"><%= errors.estado.msg %></span>
+        <% } %>
+        <br><br>
+        <a href="./"  class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-info">Actualizar</button>
+        </fieldset>
+    </form>
+</body>
+</html>

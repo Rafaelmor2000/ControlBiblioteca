@@ -27,6 +27,7 @@
                     <td>
                         <form method="POST" action="/sistemaControlDocumentos/planta/<%= list[i].id %>?nombre=<%= list[i].nombre %>">
                             <input type="hidden" name="_method" value="DELETE">
+                            <a href="/sistemaControlDocumentos/planta/editar?id=<%= list[i].id %>" class="btn btn-info">Editar</a>
                             <button type="submit" class= "btn btn-danger" onclick="return confirm('Desea borrar la planta <%= list[i].nombre %>?')">Eliminar</button>
                         </form>
                     </td>
