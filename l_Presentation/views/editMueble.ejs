@@ -5,7 +5,7 @@
     <%- include("../partials/navbar") %>
 
     <h1>Editar Mueble "<%= mueble.nombre %>"</h1>
-    <form action="./mueble.id" method="POST">
+    <form action="./<%= mueble.id %>" method="POST">
         <input type="hidden" name="_method" value="PUT">
         <fieldset>
             <label for="nombre">Nombre del Mueble:</label> 
@@ -61,8 +61,8 @@
         <% } %>
 
         
-        <button type = "reset">Borrar</button>
-        <button type="submit">Crear</button>
+        <a href="./"  class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-info">Actualizar</button>
         </fieldset>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>     
