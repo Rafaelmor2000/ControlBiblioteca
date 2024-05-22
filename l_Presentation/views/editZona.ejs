@@ -5,7 +5,7 @@
     <%- include("../partials/navbar") %>
 
     <h1>Editar Zona "<%= zona.nombre %>"</h1>
-    <form action="./zona.id" method="POST">
+    <form action="./<%= zona.id %>" method="POST">
         <input type="hidden" name="_method" value="PUT">
         <fieldset>
         <label for="nombre">Nombre de la Zona (Area u Oficina):</label> 
@@ -46,8 +46,8 @@
             <br>
         <% } %>
         <br>
-        <button type = "reset">Borrar</button>
-        <button type="submit">Crear</button>
+        <a href="./"  class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-info">Actualizar</button>
         </fieldset>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>     
