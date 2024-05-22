@@ -61,7 +61,6 @@ router.get('/editar', (req, res) => {
     seccionController.getById(id, function(ans){
         seccion = ans
         seccionController.getLists(seccion, function(data){
-            // res.render('editMueble', {seccion: seccion, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
             res.render("editSeccion", {seccion: seccion, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
         })
     })

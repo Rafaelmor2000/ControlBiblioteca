@@ -54,9 +54,11 @@ router.post('/guardar', [
 
 router.get('/editar', (req, res) => {
     let id = req.query.id
-    zonaController.getData(id, function(data){
-        zona = data.zona
-        res.render("editZona", {zona: zona, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
+    zonaController.getById(id, function(ans){
+        zona = ans
+        zonaController.getLists(zona, function(data){
+            res.render("editZona", {zona: zona, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
+        })
     })
 })
 

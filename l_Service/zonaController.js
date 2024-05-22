@@ -51,7 +51,7 @@ module.exports = {
         })
     },
 
-    getLists : (id, callback) => {
+    getLists : (zona, callback) => {
         let plantas = new Promise((resolve) => {
             let plantaList = []
             plantaController.getList(function(json){
@@ -63,43 +63,13 @@ module.exports = {
             })
         })
         let edificios = new Promise((resolve) => {
-            edificioController.getByPlanta(id, function(list){
+            edificioController.getByPlanta(zona.planta, function(list){
                 console.log(list)
                 resolve(list)
             })
         })
         Promise.all([plantas, edificios]).then((values) => {
-            callback([values[0], values[1]])
-        })
-    },
-
-    getData : (id, callback) => {
-        const dataPromise = new Promise((resolve) => {
-            dataController.getById(id, function(json){
-                
-                let zona = new Zona(json[0].idZona, json[0].nombre, json[0].edificio, json[0].planta)
-                resolve(zona)
-            })
-        })
-        dataPromise.then(zona => {
-            let plantas = new Promise((resolve) => {
-                let plantaList = []
-                plantaController.getList(function(json){
-                    for (let key in json){
-                        let tipo = new Planta(json[key].idPlanta, json[key].nombre, json[key].ciudad, json[key].estado)
-                        plantaList.push(tipo)
-                    }
-                    resolve(plantaList)
-                })
-            })
-            let edificios = new Promise((resolve) => {
-                edificioController.getByPlanta(zona.planta, function(list){
-                    resolve(list)
-                })
-            })
-            Promise.all([plantas, edificios]).then((values) => {
-                callback({zona: zona, plantas: values[0], edificios: values[1]})
-            })
+            callback({plantas: values[0], edificios: values[1]})
         })
     },
 
