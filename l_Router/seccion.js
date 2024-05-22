@@ -56,6 +56,17 @@ router.post('/guardar', [
     }
 })
 
+router.get('/editar', (req, res) => {
+    let id = req.query.id
+    seccionController.getById(id, function(ans){
+        seccion = ans
+        seccionController.getLists(seccion, function(data){
+            // res.render('editMueble', {seccion: seccion, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
+            res.render("editSeccion", {seccion: seccion, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
+        })
+    })
+})
+
 router.delete('/:id', (req, res) => {
     let id = req.params.id
     let nombre = req.query.nombre
