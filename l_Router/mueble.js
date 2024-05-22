@@ -3,6 +3,7 @@ const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const muebleController = require('../l_Service/MuebleController')
 const methodOverride = require('method-override');
+var mueble = null
 
 router.use(methodOverride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -49,6 +50,16 @@ router.post('/guardar', [
         muebleController.guardar(params)
         res.redirect('/sistemaControlDocumentos/mueble/')
     }
+})
+
+router.get('/editar', (req, res) => {
+    let id = req.query.id
+    muebleController.getById(id, function(ans){
+        mueble = ans
+        muebleController.getLists(mueble, function(data){
+            res.render('editMueble', {mueble: mueble, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
+        })
+    })
 })
 
 router.delete('/:id', (req, res) => {

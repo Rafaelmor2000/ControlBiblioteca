@@ -77,6 +77,28 @@ module.exports = {
         })
     },
 
+    getById : (id, callback) => {
+        const dataPromise = new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if(err) throw err
+                connection.query('SELECT mueble.idMueble, mueble.nombre, zona.idZona AS zona, edificio.idEdificio AS edificio, planta.idPlanta AS planta \
+                from mueble, zona, edificio, planta where mueble.zona = zona.idZona and zona.edificio = edificio.idEdificio and edificio.planta = planta.idPlanta and mueble.idMueble = ?',
+                id, (err, rows) => {
+                    connection.release() // return the connection to pool
+                    if (!err) {
+                        resolve(rows)
+                    } else {
+                        reject(console.log(err))
+                    }
+                })
+            })
+        })
+        dataPromise.then(rows => {
+            let json = JSON.parse(JSON.stringify(rows))
+            callback(json)
+        })
+    },
+
     deleteEntry : (id, callback) => {
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {

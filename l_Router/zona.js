@@ -56,7 +56,6 @@ router.get('/editar', (req, res) => {
     let id = req.query.id
     zonaController.getData(id, function(data){
         zona = data.zona
-        console.log(data)
         res.render("editZona", {zona: zona, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
     })
 })
