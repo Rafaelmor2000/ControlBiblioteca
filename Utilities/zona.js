@@ -1,4 +1,4 @@
-module.exports = class Planta {
+module.exports = class Zona {
     constructor (id, nombre, edificio, planta){
         this.id = id
         this.nombre = nombre

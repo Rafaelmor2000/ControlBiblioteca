@@ -1,0 +1,81 @@
+<html>
+    <%- include("../partials/head") %>
+<body>
+
+    <%- include("../partials/navbar") %>
+
+    <h1>Editar Zona "<%= zona.nombre %>"</h1>
+    <form action="./zona.id" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+        <fieldset>
+        <label for="nombre">Nombre de la Zona (Area u Oficina):</label> 
+        <input type="text" id="nombre" name="nombre" value="<%= zona.nombre %>">
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
+        <br>
+        
+        <label for="planta">Planta: </label>
+        <select class="form-select" aria-label="Default select example" name="planta"  id="planta">
+            <option value="-1"> Hacer selección </option>
+            <% for(let i in plantaList) { %>
+                <% if (plantaList[i].id != zona.planta) { %>
+                    <option value='<%= plantaList[i].id %>'> <%= plantaList[i].nombre %> </option>
+                <% } else { %>
+                    <option value='<%= plantaList[i].id %>' selected> <%= plantaList[i].nombre %> </option>
+                <% } %>
+            <% } %>
+        </select>
+
+        <fieldset name="opciones">
+            <legend>Edificio:</legend>
+                    <div id = "edificios">
+                        <% for(let i in edificioList) { %>
+                            <% if (edificioList[i].id != zona.edificio) { %>
+                                <input type="radio" id='<%= edificioList[i].id %>' name="planta" value='<%= edificioList[i].id %>' />
+                                <label for='<%= edificioList[i].id %>'> <%= edificioList[i].nombre %> </label><br>
+                            <% } else { %>
+                                <input type="radio" id='<%= edificioList[i].id %>' name="planta" value='<%= edificioList[i].id %>' checked/>
+                                <label for='<%= edificioList[i].id %>'> <%= edificioList[i].nombre %> </label><br>
+                            <% } %>
+                        <% } %>
+                    </div>
+        </fieldset>
+        <% if(errors && errors.edificio) { %>
+            <span class="text-danger"><%= errors.edificio.msg %></span>
+            <br>
+        <% } %>
+        <br>
+        <button type = "reset">Borrar</button>
+        <button type="submit">Crear</button>
+        </fieldset>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>     
+        <script>
+            $('#planta').on('change', function(e) {
+                e.preventDefault()
+                let id = document.getElementById("planta").value
+                $.ajax({
+                    url: `/sistemaControlDocumentos/edificio/getEdificiosByPlanta?id=${id}`,
+                    dataType: "json",
+                    success: function(data) {
+                        var id, nombre, planta
+
+                        // Get the raw DOM object for the select box
+                        select = $('#edificios');
+
+                        let html = "" 
+
+                        // Load the new options
+                        for (let i in data) {
+                        option = data[i];
+                        html += `<input type="radio" id='${option.id}' name="edificio" value='${option.id}'> 
+                            <label for='${option.id}'> ${option.nombre} </label><br>`
+                        }
+                        select.html(html)
+                    }
+                });
+            })
+        </script>
+    </form>
+</html>

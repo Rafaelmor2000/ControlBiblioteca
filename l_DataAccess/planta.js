@@ -1,5 +1,4 @@
 const {pool} = require("../Utilities/pool")
-const { getById } = require("./tipo_documento")
 
 module.exports = {
     getList : (callback) => {

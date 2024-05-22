@@ -3,6 +3,8 @@ const {check, validationResult} = require('express-validator')
 const router = express.Router()
 const zonaController = require('../l_Service/zonaController')
 const methodOverride = require('method-override');
+var zona = null
+
 
 router.use(methodOverride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -48,6 +50,15 @@ router.post('/guardar', [
         zonaController.guardar(params)
         res.redirect('/sistemaControlDocumentos/zona/')
     }
+})
+
+router.get('/editar', (req, res) => {
+    let id = req.query.id
+    zonaController.getData(id, function(data){
+        zona = data.zona
+        console.log(data)
+        res.render("editZona", {zona: zona, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
+    })
 })
 
 router.delete('/:id', (req, res) => {
