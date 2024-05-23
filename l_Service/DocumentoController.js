@@ -1,6 +1,11 @@
 const { data } = require('jquery')
 const dataController = require('../l_DataAccess/documento')
 const Documento = require("../Utilities/documento")
+const plantaController = require('../l_Service/PlantaController')
+const EdificioController = require('../l_Service/EdificioController')
+const zonaController = require('../l_Service/zonaController')
+const MuebleController = require('../l_Service/MuebleController')
+const seccionController = require('../l_Service/SeccionController')
 
 module.exports = {
     get : (callback) => {
@@ -17,6 +22,75 @@ module.exports = {
                     list.push(documento)
                 }
                 resolve(list)
+            })
+        })
+        dataPromise.then(list => {
+            callback(list)
+        })
+    },
+
+    getLists : (documento, callback) => {
+        let id = documento.direccion_fisica
+        if(id != null){
+            const dataPromise = new Promise((resolve) => {
+                seccionController.getById(id, function(seccion){
+                    resolve(seccion)
+                })
+            })
+            dataPromise.then((seccion) => {
+                let plantas = new Promise((resolve) => {
+                    plantaController.get(function(plantaList){
+                        resolve(plantaList)
+                    })
+                })
+                let edificios = new Promise((resolve) => {
+                    EdificioController.getByPlanta(seccion.planta, function(list){
+                        resolve(list)
+                    })
+                })
+                let zonas = new Promise((resolve) => {
+                    zonaController.getByEdificio(seccion.edificio, function(list){
+                        resolve(list)
+                    })
+                })
+                let muebles = new Promise((resolve) => {
+                    MuebleController.getByZona(seccion.zona, function(list){
+                        resolve(list)
+                    })
+                })
+                let secciones = new Promise((resolve) => {
+                    seccionController.getByMueble(seccion.mueble, function(list){
+                        resolve(list)
+                    })
+                })
+                Promise.all([plantas, edificios, zonas, muebles, secciones]).then((values) => {
+                    callback({seccion: seccion, plantas: values[0], edificios: values[1], zonas: values[2], muebles: values[3], secciones: values[4]})
+                })
+            })
+        }
+        else{
+            let plantas = new Promise((resolve) => {
+                plantaController.get(function(plantaList){
+                    resolve(plantaList)
+                })
+            })
+            plantas.then((plantaList) => {
+                callback({seccion: null, plantas: plantaList, edificios: [], zonas: [], muebles: [], secciones: []})
+            })
+        }
+    },
+
+    getById : (id, callback) => {
+        const dataPromise = new Promise((resolve) => {
+            dataController.getById(id, function(json){
+                let fecha = new Date(json[0].fecha).toISOString().split('T')[0]
+                let dir_vir = false
+                if(json[0].direccion_virtual){
+                    dir_vir = true
+                }
+                let documento = new Documento(json[0].idDocumento, json[0].nombre, json[0].descripcion, fecha, json[0].tipo, json[0].direccion_fisica, dir_vir)
+                
+                resolve(documento)
             })
         })
         dataPromise.then(list => {

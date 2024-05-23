@@ -52,6 +52,7 @@
                     <td>
                         <form method="POST" action="/sistemaControlDocumentos/<%= list[i].idDocumento %>">
                             <input type="hidden" name="_method" value="DELETE">
+                            <a href="/sistemaControlDocumentos/editar?id=<%= list[i].idDocumento %>" class="btn btn-info">Editar</a>
                             <button type="submit" class= "btn btn-danger" onclick="return confirm('Desea borrar el documento <%= list[i].nombre %>?')">Eliminar</button>
                         </form>
                     </td>

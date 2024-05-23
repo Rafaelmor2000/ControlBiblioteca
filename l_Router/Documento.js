@@ -108,6 +108,17 @@ router.post('/guardar',
     }
 })
 
+router.get('/editar', (req, res) => {
+    let id = req.query.id
+    documentoController.getById(id, function(ans){
+        documento = ans
+        documentoController.getLists(documento, function(data){
+            res.render("editDocumento", {documento: documento, seccion: data.seccion, seccionList: data.secciones, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
+            //res.render("editSeccion", {seccion: seccion, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
+        })
+    })
+})
+
 router.delete('/:id', (req, res) => {
     let id = req.params.id
     documentoController.borrar(id)

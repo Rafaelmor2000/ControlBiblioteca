@@ -1,0 +1,288 @@
+<html>
+    <%- include("../partials/head") %>
+<body>
+
+    <%- include("../partials/navbar") %>
+    <h1>Editar Documento "<%= documento.nombre %>" </h1>
+    <form action="./<%= documento.idDocumento %>" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="PUT">
+        <fieldset>
+        <label for="nombre">Nombre del Documento:</label> 
+        <input type="text" id="nombre" name="nombre" value="<%= documento.nombre %>">
+        <% if(errors && errors.nombre) { %>
+            <span class="text-danger"><%= errors.nombre.msg %></span>
+        <% } %>
+        <br>
+
+        <label for="descripcion">Descripción:</label> <br>
+        <textarea id="descripcion" name="descripcion" rows="4" cols="50" maxlength="140"><%= documento.descripcion %></textarea>
+        <br><br>
+
+
+        <label for="fecha">Fecha del documento: </label>
+        <input id="fecha" name= "fecha" type="date" value="<%= documento.fecha %>">
+        <% if(errors && errors.fecha) { %>
+            <span class="text-danger"><%= errors.fecha.msg %></span>
+        <% } %>
+        <br><br>
+        
+        <% if(documento.direccion_virtual) { %>
+            <label for="file" class="text-danger">Reemplazar Archivo: </label>
+        <% } else { %>
+            <label for="file">Cargar Archivo: </label>
+        <% } %>
+        <input type="file" id="file" name="file">
+        <br>
+
+    <br>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Agregar Ubicación Fisica
+    </button>
+
+    <div id="infoFisica">
+    </div>
+
+    <br>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Ubicación Física</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <label for="planta">Planta: </label>
+            <select class="form-select" aria-label="Default select example" name="planta"  id="planta">
+                <option value="-1"> Hacer selección </option>
+                <% if (seccion) { %>
+                    <% for(let i in plantaList) { %>
+                        <% if (plantaList[i].id != seccion.planta) { %>
+                            <option value='<%= plantaList[i].id %>'> <%= plantaList[i].nombre %> </option>
+                        <% } else { %>
+                            <option value='<%= plantaList[i].id %>' selected> <%= plantaList[i].nombre %> </option>
+                        <% } %>
+                    <% } %>
+                <% } else { %>
+                    <% for(let i in plantaList) { %>
+                        <option value='<%= plantaList[i].id %>'> <%= plantaList[i].nombre %> </option>
+                    <% } %>
+                <% } %>
+            </select>
+  
+            <label for="edificio">Edificio: </label>
+            <div id = "edificios">
+                <% if (seccion) { %>
+                    <select class="form-select" aria-label="Default select example" name="edificio"  id="edificio">
+                        <option value="-1"> Hacer selección </option>
+                        <% for(let i in edificioList) { %>
+                            <% if (edificioList[i].id != seccion.edificio) { %>
+                                <option value='<%= edificioList[i].id %>'> <%= edificioList[i].nombre %> </option>
+                            <% } else { %>
+                                <option value='<%= edificioList[i].id %>' selected> <%= edificioList[i].nombre %> </option>
+                            <% } %>
+                        <% } %>
+                    </select>
+                <% } %>
+            </div>
+    
+            <label for="Zona">Zona: </label>
+            <div id = "zonas">
+                <% if (seccion) { %>
+                    <select class="form-select" aria-label="Default select example" name="zona"  id="zona">
+                    <% for(let i in zonaList) { %>
+                        <% if (zonaList[i].id != seccion.zona) { %>
+                            <option value='<%= zonaList[i].id %>'> <%= zonaList[i].nombre %> </option>
+                        <% } else { %>
+                            <option value='<%= zonaList[i].id %>' selected> <%= zonaList[i].nombre %> </option>
+                        <% } %>
+                    <% } %>
+                    </select>
+                <% } %>
+            </div>
+    
+            <label for="mueble">Mueble: </label>
+            <div id = "muebles">
+                <% if (seccion) { %>
+                    <select class="form-select" aria-label="Default select example" name="mueble"  id="mueble">
+                    <% for(let i in muebleList) { %>
+                        <% if (muebleList[i].id != seccion.mueble) { %>
+                            <option value='<%= muebleList[i].id %>'> <%= muebleList[i].nombre %> </option>
+                        <% } else { %>
+                            <option value='<%= muebleList[i].id %>' selected> <%= muebleList[i].nombre %> </option>
+                        <% } %>
+                    <% } %>
+                    </select>
+                <% } %>
+            </div>
+    
+            <fieldset name="opciones">
+                <legend>Sección:</legend>
+                <div id = "secciones">
+                    <% for(let i in seccionList) { %>
+                        <% if (seccionList[i].id != seccion.id) { %>
+                            <input type="radio" id='<%= seccionList[i].id %>' name="seccion" value='<%= seccionList[i].id %>' />
+                            <label for='<%= seccionList[i].id %>'> <%= seccionList[i].nombre %> </label><br>
+                        <% } else { %>
+                            <input type="radio" id='<%= seccionList[i].id %>' name="seccion" value='<%= seccionList[i].id %>' checked/>
+                            <label for='<%= seccionList[i].id %>'> <%= seccionList[i].nombre %> </label><br>
+                        <% } %>
+                    <% } %>
+                </div>
+            </fieldset>
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button id="deleteButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Borrar</button>
+          <button id="agregarFis" type="button" class="btn btn-primary">Agregar Ubicación Fisica</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        
+        
+        <br>
+        
+        
+        </fieldset>
+
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>     
+    <script>
+              $('#planta').on('change', function(e) {
+                  e.preventDefault()
+                  let id = document.getElementById("planta").value
+                  $.ajax({
+                      url: `/sistemaControlDocumentos/edificio/getEdificiosByPlanta?id=${id}`,
+                      dataType: "json",
+                      success: function(data) {
+                          var id, nombre, planta
+                          $('#zonas').html("")
+                          $('#muebles').html("")
+                          $('#secciones').html("")
+  
+                          // Get the raw DOM object for the select box
+                          select = $('#edificios');
+  
+                          let html = '<select class="form-select" aria-label="Default select example" name="edificio"  id="edificio"><option value="-1"> Hacer Selección </option>' 
+  
+                          // Load the new options
+                          for (let i in data) {
+                          option = data[i];
+                          html += `<option value='${data[i].id}'> ${data[i].nombre} </option>`
+                          }
+                          select.html(html)
+                      }
+                  });
+              })
+              $('#edificios').on('change', function(e) {
+                  e.preventDefault()
+                  let id = document.getElementById("edificio").value
+                  $.ajax({
+                      url: `/sistemaControlDocumentos/zona/getZonasByEdificio?id=${id}`,
+                      dataType: "json",
+                      success: function(data) {
+                          var id, nombre, planta
+                          $('#muebles').html("")
+                          $('#secciones').html("")
+  
+                          // Get the raw DOM object for the select box
+                          select = $('#zonas');
+  
+                          let html = '<select class="form-select" aria-label="Default select example" name="zona"  id="zona"><option value="-1"> Hacer Selección </option>' 
+  
+                          // Load the new options
+                          for (let i in data) {
+                          option = data[i];
+                          html += `<option value='${data[i].id}'> ${data[i].nombre} </option>`
+                          }
+                          select.html(html)
+                      }
+                  });
+              })
+  
+              $('#zonas').on('change', function(e) {
+                  e.preventDefault()
+                  let id = document.getElementById("zona").value
+                  $.ajax({
+                      url: `/sistemaControlDocumentos/mueble/getMueblesByZona?id=${id}`,
+                      dataType: "json",
+                      success: function(data) {
+                          var id, nombre, planta
+                          $('#secciones').html("")
+  
+                          // Get the raw DOM object for the select box
+                          select = $('#muebles');
+  
+                          let html = '<select class="form-select" aria-label="Default select example" name="mueble"  id="mueble"><option value="-1"> Hacer Selección </option>' 
+  
+                          // Load the new options
+                          for (let i in data) {
+                          option = data[i];
+                          html += `<option value='${data[i].id}'> ${data[i].nombre} </option>`
+                          }
+                          select.html(html)
+                      }
+                  });
+              })
+  
+              $('#muebles').on('change', function(e) {
+                  e.preventDefault()
+                  let id = document.getElementById("mueble").value
+                  $.ajax({
+                      url: `/sistemaControlDocumentos/seccion/getSeccionesByMueble?id=${id}`,
+                      dataType: "json",
+                      success: function(data) {
+                          var id, nombre, edificio
+  
+                          // Get the raw DOM object for the select box
+                          select = $('#secciones');
+  
+                          let html = "" 
+  
+                          // Load the new options
+                          for (let i in data) {
+                          option = data[i];
+                          html += `<input type="radio" id='seccion' name="seccion" value='${option.id}'> 
+                              <label for='${option.id}'> ${option.nombre} </label><br>`
+                          }
+                          select.html(html)
+                      }
+                  });
+              })
+
+              $('#deleteButton').on('click', clearInfoFis)
+
+              function clearInfoFis(){
+                $('#edificios').html("")
+                $('#zonas').html("")
+                $('#muebles').html("")
+                $('#secciones').html("")
+                $('#infoFisica').html("")
+              }
+              
+
+              $('#agregarFis').on('click', function(e){
+                let seccion = document.getElementById('seccion')
+                if(seccion == null){
+                  alert("Falta llenar datos")
+                }
+                else{
+                  let id = seccion.value
+                  $.ajax({
+                      url: `/sistemaControlDocumentos/seccion/getSeccionData?id=${id}`,
+                      dataType: "json",
+                      success: function(data) {
+                        html = `<p> ${data.nombre} > ${data.mueble} > ${data.zona} > ${data.edificio} > ${data.planta} </p>`
+                        $('#infoFisica').html(html)
+                      }
+                  })
+                  $('#exampleModal').modal('hide')
+                }
+              })
+              
+    </script>
+</html>
