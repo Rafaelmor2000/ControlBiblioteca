@@ -114,9 +114,53 @@ router.get('/editar', (req, res) => {
         documento = ans
         documentoController.getLists(documento, function(data){
             res.render("editDocumento", {documento: documento, seccion: data.seccion, seccionList: data.secciones, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
-            //res.render("editSeccion", {seccion: seccion, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: ""})
         })
     })
+})
+
+router.put('/:id', 
+    upload.single('file'),
+    [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('fecha').notEmpty().withMessage('No se introdujo Fecha'),
+    ],
+    (req, res) => {
+
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        documentoController.getLists(documento, function(data){
+            res.render("editDocumento", {documento: documento, seccion: data.seccion, seccionList: data.secciones, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: errors.mapped()})
+        })
+    }
+    else{
+        virPromise = new Promise((resolve) => {
+            if(req.file){
+                fileData = JSON.parse(JSON.stringify(req.file))
+                documento.setVir(fileData.path)
+                resolve()
+            }
+            else{
+                resolve()
+            }
+        })
+        fisPromise = new Promise((resolve) => {
+            if(req.body.seccion){
+                documento.setFis(req.body.seccion)
+                resolve()
+            }
+            else{
+                resolve()
+            }
+        })
+
+        Promise.all([virPromise, fisPromise]).then(() => {
+            console.log(documento)
+            //documentoController.update(documento)
+            // documento = null
+        });
+        
+        res.redirect("/sistemaControlDocumentos")
+    }
 })
 
 router.delete('/:id', (req, res) => {

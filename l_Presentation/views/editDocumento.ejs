@@ -4,7 +4,7 @@
 
     <%- include("../partials/navbar") %>
     <h1>Editar Documento "<%= documento.nombre %>" </h1>
-    <form action="./<%= documento.idDocumento %>" method="POST" enctype="multipart/form-data">
+    <form action="./<%= documento.idDocumento %>" enctype="multipart/form-data" method="POST" >
         <input type="hidden" name="_method" value="PUT">
         <fieldset>
         <label for="nombre">Nombre del Documento:</label> 
@@ -145,8 +145,8 @@
         
         
         <br>
-        
-        
+        <a href="./"  class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-info">Actualizar</button>
         </fieldset>
 
     </form>
