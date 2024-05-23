@@ -284,5 +284,19 @@
                 }
               })
               
+              $('document').ready(function(e){
+                let idSeccion = <%= documento.direccion_fisica %>
+                if(idSeccion != null){
+                  $.ajax({
+                      url: `/sistemaControlDocumentos/seccion/getSeccionData?id=${idSeccion}`,
+                      dataType: "json",
+                      success: function(data) {
+                        html = `<p> ${data.nombre} > ${data.mueble} > ${data.zona} > ${data.edificio} > ${data.planta} </p>`
+                        $('#infoFisica').html(html)
+                      }
+                  })
+                  $('#exampleModal').modal('hide')
+                }
+              })
     </script>
 </html>
