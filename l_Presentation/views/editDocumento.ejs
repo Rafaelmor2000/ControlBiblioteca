@@ -285,8 +285,8 @@
               })
               
               $('document').ready(function(e){
-                let idSeccion = <%= documento.direccion_fisica %>
-                if(idSeccion != null){
+                let idSeccion = '<%= documento.direccion_fisica %>'
+                if(idSeccion != ''){
                   $.ajax({
                       url: `/sistemaControlDocumentos/seccion/getSeccionData?id=${idSeccion}`,
                       dataType: "json",
