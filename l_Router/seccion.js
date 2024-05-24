@@ -66,6 +66,27 @@ router.get('/editar', (req, res) => {
     })
 })
 
+router.put('/:id', [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('mueble').notEmpty().withMessage('No se introdujo Mueble'),
+    ], (req,res) => {
+        const errors = validationResult(req);
+        console.log(errors.mapped())
+        if (!errors.isEmpty()){
+            seccionController.getLists(seccion, function(data){
+                res.render("editSeccion", {seccion: seccion, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: errors.mapped()})
+            })
+        }
+        else{
+            seccion.nombre = req.body.nombre
+            seccion.mueble = req.body.mueble
+            console.log(seccion)
+            seccionController.actualizar(seccion)
+            seccion = null
+            res.redirect('/sistemaControlDocumentos/seccion/')
+        }
+})
+
 router.delete('/:id', (req, res) => {
     let id = req.params.id
     let nombre = req.query.nombre

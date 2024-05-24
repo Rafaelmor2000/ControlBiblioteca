@@ -122,6 +122,11 @@ module.exports = {
         dataController.saveNew(params)
     },
 
+    actualizar : (seccion) => {
+        params = JSON.parse(JSON.stringify(seccion))
+        dataController.update(params)
+    },
+
     borrar : (id, callback) => {
         const dataPromise = new Promise((resolve) => {
             dataController.deleteEntry(id, function(isDeleted){

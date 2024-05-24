@@ -121,16 +121,19 @@ module.exports = {
         })
     },
 
-    deleteEntry : (id) => {
+    update : (params) => {
         pool.getConnection((err, connection) => {
             if(err) throw err
-            connection.query('DELETE FROM seccion WHERE idSeccion = ?', id, (err, rows) => {
-                connection.release()
-                if (!err) {
-                    console.log(`seccion con id ${id} ha sido eliminada`)
+            const {id, nombre, mueble} = params
+            connection.query('UPDATE seccion SET nombre = ?, idMueble = ? WHERE idSeccion = ?', [nombre, mueble, id] , (err, rows) => {
+                connection.release() // return the connection to pool
+
+                if(!err) {
+                    console.log(`Se ha actualizado la seccion: ${nombre}`)
                 } else {
                     console.log(err)
                 }
+
             })
         })
     },
