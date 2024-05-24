@@ -100,6 +100,12 @@ module.exports = {
         dataController.saveNew(params)
     },
 
+    actualizar : (edificio) => {
+        params = JSON.parse(JSON.stringify(edificio))
+        dataController.update(params)
+    },
+
+
     borrar : (id, callback) => {
         const dataPromise = new Promise((resolve) => {
             dataController.deleteEntry(id, function(isDeleted){

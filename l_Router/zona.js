@@ -62,6 +62,31 @@ router.get('/editar', (req, res) => {
     })
 })
 
+router.put('/:id', [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('edificio').notEmpty().withMessage('No se introdujo Edificio'),
+    ], (req,res) => {
+        const errors = validationResult(req);
+        let id = req.params.id
+        console.log(errors.mapped())
+        if (!errors.isEmpty()){
+            zonaController.getById(id, function(ans){
+                zona = ans
+                zonaController.getLists(zona, function(data){
+                    res.render("editZona", {zona: zona, edificioList: data.edificios, plantaList: data.plantas, errors: errors.mapped()})
+                })
+            })
+        }
+        else{
+            zona.nombre = req.body.nombre
+            zona.edificio = req.body.edificio
+            console.log(zona)
+            zonaController.actualizar(zona)
+            zona = null
+            res.redirect('/sistemaControlDocumentos/zona/')
+        }
+})
+
 router.delete('/:id', (req, res) => {
     let id = req.params.id
     let nombre = req.query.nombre

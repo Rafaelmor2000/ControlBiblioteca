@@ -32,10 +32,10 @@
                     <div id = "edificios">
                         <% for(let i in edificioList) { %>
                             <% if (edificioList[i].id != zona.edificio) { %>
-                                <input type="radio" id='<%= edificioList[i].id %>' name="planta" value='<%= edificioList[i].id %>' />
+                                <input type="radio" id='<%= edificioList[i].id %>' name="edificio" value='<%= edificioList[i].id %>' />
                                 <label for='<%= edificioList[i].id %>'> <%= edificioList[i].nombre %> </label><br>
                             <% } else { %>
-                                <input type="radio" id='<%= edificioList[i].id %>' name="planta" value='<%= edificioList[i].id %>' checked/>
+                                <input type="radio" id='<%= edificioList[i].id %>' name="edificio" value='<%= edificioList[i].id %>' checked/>
                                 <label for='<%= edificioList[i].id %>'> <%= edificioList[i].nombre %> </label><br>
                             <% } %>
                         <% } %>
