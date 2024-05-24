@@ -99,6 +99,23 @@ module.exports = {
         })
     },
 
+    update : (params) => {
+        pool.getConnection((err, connection) => {
+            if(err) throw err
+            const {id, nombre, zona} = params
+            connection.query('UPDATE mueble SET nombre = ?, zona = ? WHERE idMueble = ?', [nombre, zona, id] , (err, rows) => {
+                connection.release() // return the connection to pool
+
+                if(!err) {
+                    console.log(`Se ha actualizado el mueble: ${nombre}`)
+                } else {
+                    console.log(err)
+                }
+
+            })
+        })
+    },
+
     deleteEntry : (id, callback) => {
         const dataPromise = new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {

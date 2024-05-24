@@ -62,6 +62,27 @@ router.get('/editar', (req, res) => {
     })
 })
 
+router.put('/:id', [
+    check('nombre').notEmpty().withMessage('No se introdujo Nombre'),
+    check('zona').notEmpty().withMessage('No se introdujo Zona'),
+    ], (req,res) => {
+        const errors = validationResult(req);
+        console.log(errors.mapped())
+        if (!errors.isEmpty()){
+            muebleController.getLists(mueble, function(data){
+                res.render('editMueble', {mueble: mueble, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: errors.mapped()})
+            })
+        }
+        else{
+            mueble.nombre = req.body.nombre
+            mueble.zona = req.body.zona
+            console.log(mueble)
+            muebleController.actualizar(mueble)
+            mueble = null
+            res.redirect('/sistemaControlDocumentos/mueble/')
+        }
+})
+
 router.delete('/:id', (req, res) => {
     let id = req.params.id
     let nombre = req.query.nombre
