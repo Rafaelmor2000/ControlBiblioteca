@@ -70,11 +70,8 @@ router.put('/:id', [
         let id = req.params.id
         console.log(errors.mapped())
         if (!errors.isEmpty()){
-            zonaController.getById(id, function(ans){
-                zona = ans
-                zonaController.getLists(zona, function(data){
-                    res.render("editZona", {zona: zona, edificioList: data.edificios, plantaList: data.plantas, errors: errors.mapped()})
-                })
+            zonaController.getLists(zona, function(data){
+                res.render("editZona", {zona: zona, edificioList: data.edificios, plantaList: data.plantas, errors: errors.mapped()})
             })
         }
         else{
