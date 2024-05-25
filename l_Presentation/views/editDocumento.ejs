@@ -4,7 +4,7 @@
 
     <%- include("../partials/navbar") %>
     <h1>Editar Documento "<%= documento.nombre %>" </h1>
-    <form action="./<%= documento.idDocumento %>" enctype="multipart/form-data" method="POST" >
+    <form action="/sistemaControlDocumentos/<%= documento.idDocumento %>?_method=PUT" enctype="multipart/form-data" method="POST">
         <input type="hidden" name="_method" value="PUT">
         <fieldset>
         <label for="nombre">Nombre del Documento:</label> 

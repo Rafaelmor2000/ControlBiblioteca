@@ -6,16 +6,18 @@ const documentoController = require("../l_Service/DocumentoController")
 const plantaController = require("../l_Service/PlantaController")
 const {upload} = require("../Utilities/multer")
 const Documento = require("../Utilities/documento")
-const { json } = require('body-parser')
 const methodOverride = require('method-override');
 
 router.use(methodOverride(function (req, res) {
-  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-    // look in urlencoded POST bodies and delete it
-    var method = req.body._method
-    delete req.body._method
-    return method
-  }
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+        // look in urlencoded POST bodies and delete it
+        let method = req.body._method;
+        delete req.body._method;
+        return method;
+    } else if (req.query && '_method' in req.query) {
+        // look in query parameters
+        return req.query._method;
+    }
 }))
 
 var documento = null
@@ -125,17 +127,18 @@ router.put('/:id',
     check('fecha').notEmpty().withMessage('No se introdujo Fecha'),
     ],
     (req, res) => {
-
+    let id = req.params.id
     const errors = validationResult(req)
+    console.log("something")
     if(!errors.isEmpty()){
         documentoController.getLists(documento, function(data){
             res.render("editDocumento", {documento: documento, seccion: data.seccion, seccionList: data.secciones, muebleList: data.muebles, zonaList: data.zonas, edificioList: data.edificios, plantaList: data.plantas, errors: errors.mapped()})
         })
     }
     else{
-        virPromise = new Promise((resolve) => {
+        const virPromise = new Promise((resolve) => {
             if(req.file){
-                fileData = JSON.parse(JSON.stringify(req.file))
+                const fileData = JSON.parse(JSON.stringify(req.file))
                 documento.setVir(fileData.path)
                 resolve()
             }
@@ -143,22 +146,15 @@ router.put('/:id',
                 resolve()
             }
         })
-        fisPromise = new Promise((resolve) => {
-            if(req.body.seccion){
-                documento.setFis(req.body.seccion)
-                resolve()
-            }
-            else{
-                resolve()
-            }
-        })
-
-        Promise.all([virPromise, fisPromise]).then(() => {
+        virPromise.then(() => {
+            documento.setFis(req.body.seccion)
+            documento.nombre = req.body.nombre
+            documento.descripcion = req.body.descripcion, 
+            documento.fecha = req.body.fecha,
             console.log(documento)
-            //documentoController.update(documento)
-            // documento = null
-        });
-        
+            documentoController.actualizar(documento)
+            documento = null
+        })
         res.redirect("/sistemaControlDocumentos")
     }
 })

@@ -118,6 +118,37 @@ module.exports = {
         })
     },
 
+    update : (params) => {
+        pool.getConnection((err, connection) => {
+            if(err) throw err
+            const {idDocumento, nombre, descripcion, fecha, direccion_fisica, direccion_virtual} = params
+            if(direccion_virtual === true || direccion_virtual === false){
+                connection.query('UPDATE documento SET nombre = ?, descripcion = ?, fecha = ?, direccion_fisica = ? WHERE idDocumento = ?', [nombre, descripcion, fecha, direccion_fisica, idDocumento] , (err, rows) => {
+                    connection.release() // return the connection to pool
+    
+                    if(!err) {
+                        console.log(`Se ha actualizado el documento: ${nombre}`)
+                    } else {
+                        console.log(err)
+                    }
+    
+                })
+            }
+            else{
+                connection.query('UPDATE documento SET nombre = ?, descripcion = ?, fecha = ?, direccion_fisica = ?, direccion_virtual = ? WHERE idDocumento = ?', [nombre, descripcion, fecha, direccion_fisica, direccion_virtual, idDocumento] , (err, rows) => {
+                    connection.release() // return the connection to pool
+    
+                    if(!err) {
+                        console.log(`Se ha actualizado el documento: ${nombre}`)
+                    } else {
+                        console.log(err)
+                    }
+    
+                })
+            }
+        })
+    },
+
     deleteEntry : (id) => {
         pool.getConnection((err, connection) => {
             if(err) throw err

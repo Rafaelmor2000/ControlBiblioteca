@@ -138,6 +138,11 @@ module.exports = {
         dataController.saveNew(params)
     },
 
+    actualizar : (seccion) => {
+        params = JSON.parse(JSON.stringify(seccion))
+        dataController.update(params)
+    },
+
     borrar : (id) => {
         dataController.deleteEntry(id)
     }
