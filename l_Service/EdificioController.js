@@ -1,8 +1,6 @@
 const dataController = require('../l_DataAccess/edificio')
 const plantaController = require('../l_Service/PlantaController')
 const Edificio = require('../Utilities/edificio')
-const Planta = require('../Utilities/planta')
-
 
 
 module.exports = {
