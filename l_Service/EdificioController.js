@@ -1,6 +1,5 @@
-const edificio = require('../l_DataAccess/edificio')
 const dataController = require('../l_DataAccess/edificio')
-const plantaController = require('../l_DataAccess/planta')
+const plantaController = require('../l_Service/PlantaController')
 const Edificio = require('../Utilities/edificio')
 const Planta = require('../Utilities/planta')
 
@@ -25,17 +24,12 @@ module.exports = {
 
     nuevo : (callback) =>{
         const dataPromise = new Promise((resolve) => {
-            let list = []
-            plantaController.getList(function(json){
-                for (let key in json){
-                    let tipo = new Planta(json[key].idPlanta, json[key].nombre, json[key].ciudad, json[key].estado)
-                    list.push(tipo)
-                }
-                resolve(list)
+            plantaController.get(function(plantas){
+                resolve(plantas)
             })
         })
-        dataPromise.then(list => {
-            callback(list)
+        dataPromise.then(plantas => {
+            callback(plantas)
         })
     },
 
