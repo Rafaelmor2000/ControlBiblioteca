@@ -2,6 +2,7 @@ const { data } = require('jquery')
 const dataController = require('../l_DataAccess/documento')
 const Documento = require("../Utilities/documento")
 const plantaController = require('../l_Service/PlantaController')
+const tipoController = require('../l_Service/tipo_documentoController')
 const EdificioController = require('../l_Service/EdificioController')
 const zonaController = require('../l_Service/zonaController')
 const MuebleController = require('../l_Service/MuebleController')
@@ -26,6 +27,22 @@ module.exports = {
         })
         dataPromise.then(list => {
             callback(list)
+        })
+    },
+
+    nuevo: (callback) => {
+        tipoPromise = new Promise((resolve) => {
+            tipoController.get(function(tipos){
+                resolve(tipos)
+            })
+        })
+        plantaPromise = new Promise((resolve) => {
+            plantaController.get(function(plantas){
+                resolve(plantas)
+            })
+        })
+        Promise.all([tipoPromise, plantaPromise]).then((values) => {
+            callback({tipos: values[0], plantas: values[1]})
         })
     },
 

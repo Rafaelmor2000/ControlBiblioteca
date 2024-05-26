@@ -1,9 +1,7 @@
 const express = require('express')
 const {check, validationResult} = require('express-validator')
 const router = express.Router()
-const tipoController = require("../l_Service/tipo_documentoController")
 const documentoController = require("../l_Service/DocumentoController")
-const plantaController = require("../l_Service/PlantaController")
 const {upload} = require("../Utilities/multer")
 const Documento = require("../Utilities/documento")
 const methodOverride = require('method-override');
@@ -23,24 +21,14 @@ router.use(methodOverride(function (req, res) {
 var documento = null
 
 router.get('/', (req, res) => {
-    let ans = documentoController.get(function(ans){
+    documentoController.get(function(ans){
         res.render("documento", {list: ans})
     })
 })
 
 router.get('/nuevo', (req, res) => {
-    tipoPromise = new Promise((resolve) => {
-        tipoController.get(function(tipos){
-            resolve(tipos)
-        })
-    })
-    plantaPromise = new Promise((resolve) => {
-        plantaController.get(function(plantas){
-            resolve(plantas)
-        })
-    })
-    Promise.all([tipoPromise, plantaPromise]).then((values) => {
-        res.render("newDocumento", {tipo_documento: values[0], plantaList: values[1], errors: ""})
+    documentoController.nuevo(function(data){
+        res.render("newDocumento", {tipo_documento: data.tipos, plantaList: data.plantas, errors: ""})
     })
 })
 
@@ -63,18 +51,8 @@ router.post('/guardar',
 
     const errors = validationResult(req)
     if(!errors.isEmpty()){
-        tipoPromise = new Promise((resolve) => {
-            tipoController.get(function(tipos){
-                resolve(tipos)
-            })
-        })
-        plantaPromise = new Promise((resolve) => {
-            plantaController.get(function(plantas){
-                resolve(plantas)
-            })
-        })
-        Promise.all([tipoPromise, plantaPromise]).then((values) => {
-            res.render("newDocumento", {tipo_documento: values[0], plantaList: values[1], errors: errors.mapped()})
+        documentoController.nuevo(function(data){
+            res.render("newDocumento", {tipo_documento: data.tipos, plantaList: data.plantas, errors: errors.mapped()})
         })
 
     }
