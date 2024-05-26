@@ -1,9 +1,8 @@
 const dataController = require('../l_DataAccess/mueble')
-const plantaController = require('../l_DataAccess/planta')
 const Mueble = require("../Utilities/mueble")
-const Planta = require('../Utilities/planta')
 const zonaController = require('../l_Service/zonaController')
 const edificioController = require('../l_Service/EdificioController')
+const plantaController = require('../l_Service/PlantaController')
 
 
 module.exports = {
@@ -24,18 +23,13 @@ module.exports = {
     },
 
     nuevo : (callback) =>{
-        var plantaList = []
         const dataPromise = new Promise((resolve) => {
-            plantaController.getList(function(json){
-                for (let key in json){
-                    let tipo = new Planta(json[key].idPlanta, json[key].nombre, json[key].ciudad, json[key].estado)
-                    plantaList.push(tipo)
-                }
-                resolve(plantaList)
+            plantaController.get(function(plantas){
+                resolve(plantas)
             })
         })
-        dataPromise.then((values) => {
-            callback(values)
+        dataPromise.then(plantas => {
+            callback(plantas)
         })
     },
 
@@ -74,13 +68,8 @@ module.exports = {
 
     getLists : (mueble, callback) => {
         let plantas = new Promise((resolve) => {
-            let plantaList = []
-            plantaController.getList(function(json){
-                for (let key in json){
-                    let planta = new Planta(json[key].idPlanta, json[key].nombre, json[key].ciudad, json[key].estado)
-                    plantaList.push(planta)
-                }
-                resolve(plantaList)
+            plantaController.get(function(plantas){
+                resolve(plantas)
             })
         })
         let edificios = new Promise((resolve) => {
