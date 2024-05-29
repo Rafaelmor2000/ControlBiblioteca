@@ -46,14 +46,9 @@ module.exports = {
     },
 
     getLists : (zona, callback) => {
-        let plantas = new Promise((resolve) => {
-            let plantaList = []
-            plantaController.getList(function(json){
-                for (let key in json){
-                    let tipo = new Planta(json[key].idPlanta, json[key].nombre, json[key].ciudad, json[key].estado)
-                    plantaList.push(tipo)
-                }
-                resolve(plantaList)
+        const plantas = new Promise((resolve) => {
+            plantaController.get(function(plantas){
+                resolve(plantas)
             })
         })
         let edificios = new Promise((resolve) => {
